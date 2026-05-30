@@ -1,6 +1,6 @@
 {
-  "_comment": "Curated full original-language biblical text (Hebrew / Greek / Aramaic) for the week's readings. This file is the source of truth for the 'Show Original Languages' feature. Edit this instead of putting long strings inside index.html. The app loads it at runtime and merges it with any inline data in STUDY_CONFIG.",
-  "_format": "Keys are week IDs (as strings). Each value is an array of objects with ref, language, text (the actual script), translit, and meaning.",
+  "_comment": "Source of truth for full original-language biblical text (primarily Hebrew from Sefaria). Populated using https://www.sefaria.org/api/texts/ for accuracy. The app loads this at runtime. Goal: several full verses per major reading in the defined weeks.",
+  "_source": "Sefaria (Masoretic text with niqqud)",
   "1": [
     {
       "ref": "Genesis 1:1",
@@ -17,6 +17,81 @@
       "meaning": "God saw all that He had made, and behold, it was very good."
     }
   ],
+  "3": [
+    {
+      "ref": "Genesis 16:13",
+      "language": "Hebrew",
+      "text": "וַתִּקְרָ֥א שֵׁם־יְהוָ֖ה הַדֹּבֵ֣ר אֵלֶ֑יהָ אַתָּ֗ה אֵ֣ל רֳאִ֔י",
+      "translit": "Vatikra shem YHWH hadover eleha: 'Atah El Ro'i'",
+      "meaning": "She called the name of the LORD who spoke to her: 'You are El-Roi' (the God who sees me)."
+    }
+  ],
+  "4": [
+    {
+      "ref": "Genesis 22:2",
+      "language": "Hebrew",
+      "text": "קַח־נָ֨א אֶת־בִּנְךָ֜ אֶת־יְחִידְךָ֗ אֲשֶׁר־אָהַ֨בְתָּ֙ אֶת־יִצְחָ֔ק",
+      "translit": "Qach-na et-bincha et-yechidcha asher-ahavta et-Yitzchak",
+      "meaning": "Take your son, your only son, whom you love — Isaac."
+    },
+    {
+      "ref": "Genesis 22:14",
+      "language": "Hebrew",
+      "text": "וַיִּקְרָ֨א אַבְרָהָ֜ם שֵׁם־הַמָּק֥וֹם הַה֖וּא יְהוָ֣ה יִרְאֶ֑ה",
+      "translit": "Vayikra Avraham shem-hamakom hahu: YHWH Yireh",
+      "meaning": "Abraham called the name of that place 'The LORD will see / provide'."
+    }
+  ],
+  "7": [
+    {
+      "ref": "Exodus 3:14",
+      "language": "Hebrew",
+      "text": "וַיֹּ֤אמֶר אֱלֹהִים֙ אֶל־מֹשֶׁ֔ה אֶֽהְיֶ֖ה אֲשֶׁ֣ר אֶֽהְיֶ֑ה",
+      "translit": "Vayomer Elohim el-Moshe: Ehyeh asher Ehyeh",
+      "meaning": "God said to Moses: 'I AM WHO I AM' (or 'I will be what I will be')."
+    }
+  ],
+  "12": [
+    {
+      "ref": "Deuteronomy 6:4",
+      "language": "Hebrew",
+      "text": "שְׁמַ֖ע יִשְׂרָאֵ֑ל יְהוָ֥ה אֱלֹהֵ֖ינוּ יְהוָ֥ה אֶחָֽד׃",
+      "translit": "Shema Yisrael, YHWH Eloheinu, YHWH Echad",
+      "meaning": "Hear, O Israel: The LORD our God, the LORD is one."
+    },
+    {
+      "ref": "Deuteronomy 6:5",
+      "language": "Hebrew",
+      "text": "וְאָהַבְתָּ֛ אֵ֥ת יְהוָ֖ה אֱלֹהֶ֑יךָ בְּכָל־לְבָבְךָ֥ וּבְכָל־נַפְשְׁךָ֖ וּבְכָל־מְאֹדֶֽךָ׃",
+      "translit": "Ve'ahavta et YHWH Eloheicha bechol-levavcha u'vechol-nafshcha u'vechol-me'odecha",
+      "meaning": "You shall love the LORD your God with all your heart, with all your soul, and with all your might."
+    }
+  ],
+  "13": [
+    {
+      "ref": "Joshua 1:9",
+      "language": "Hebrew",
+      "text": "הֲל֤וֹא צִוִּיתִ֙יךָ֙ חֲזַ֣ק וֶאֱמָ֔ץ אַֽל־תַּעֲרֹ֖ץ וְאַל־תֵּחָ֑ת כִּ֤י עִמְּךָ֙ יְהוָ֣ה אֱלֹהֶ֔יךָ בְּכֹ֖ל אֲשֶׁ֥ר תֵּלֵֽךְ׃",
+      "translit": "Halo tziviticha: Chazak ve'ematz, al-ta'arotz ve'al-techat, ki imcha YHWH Eloheicha bechol asher telech",
+      "meaning": "Have I not commanded you? Be strong and courageous. Do not be terrified; do not be discouraged, for the LORD your God will be with you wherever you go."
+    }
+  ],
+  "18": [
+    {
+      "ref": "Psalm 23:1",
+      "language": "Hebrew",
+      "text": "יְהוָ֥ה רֹעִ֑י לֹ֣א אֶחְסָֽר׃",
+      "translit": "YHWH ro'i, lo echsar",
+      "meaning": "The LORD is my shepherd; I shall not want."
+    },
+    {
+      "ref": "Psalm 23:4",
+      "language": "Hebrew",
+      "text": "גַּ֤ם כִּי־אֵלֵ֨ךְ בְּגֵ֪יא צַלְמָ֫וֶ֥ת לֹא־אִ֖ירָ֥א רָ֑ע כִּי־אַתָּ֥ה עִמָּדִֽי",
+      "translit": "Gam ki-elech be'gei tzalmavet lo-ira ra, ki atah imadi",
+      "meaning": "Even though I walk through the valley of the shadow of death, I will fear no evil, for You are with me."
+    }
+  ],
   "22": [
     {
       "ref": "Genesis 1:1",
@@ -28,7 +103,7 @@
     {
       "ref": "Genesis 1:31",
       "language": "Hebrew",
-      "text": "וַיַּ֤רְא אֱלֹהִים֙ אֶת־כׇּל־אֲשֶׁ֣ר עָשָׂ֔ה וְהִנֵּה־ט֖וֹב מְאֹ֑ד וַֽיְהִי־עֶ֥רֶב וַֽיְהִי־בֹ֖קֶר י֥וֹם הַשִּׁשִּֽׁי׃",
+      "text": "וַיַּ֤רְא אֱלֹהִים֙ אֶת־כׇּל־אֲשֶׁ֣ר עָשָׂ֔ה וְהִנֵּה־ט֖וֹב מְאֹ֑ד וַֽYְהִי־עֶ֥רֶב וַֽYְהִY־בֹ֖קֶר י֥וֹם הַשִּׁשִּֽׁY׃",
       "translit": "Vayar Elohim et kol asher asah vehineh tov me'od",
       "meaning": "God saw all that He had made, and behold, it was very good."
     }
