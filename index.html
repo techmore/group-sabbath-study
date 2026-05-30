@@ -1,0 +1,2498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sacred Rhythm • Group Bible Study Companion</title>
+  <meta name="description" content="A beautiful, reusable weekly companion for group Bible study. ESV primary, deep formation with John Mark Comer, scholars, and original languages.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════════════════════════════════════
+       SACRED RHYTHM — Design System
+       Olive + Stone palette + Instrument Serif + Inter
+       Mirrored from the Emporia-Vue3-Mac-Utility-Monitor aesthetic (techmore)
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+    @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Olive (warm, contemplative, earthy) — darker leaning for richer feel */
+      --olive-50:  #f7f8f4;
+      --olive-100: #eef0e6;
+      --olive-200: #dde1d0;
+      --olive-300: #c4c9b0;
+      --olive-400: #a7ae8b;
+      --olive-500: #8a9269;
+      --olive-600: #6e754b;
+      --olive-700: #575d3d;
+      --olive-800: #464a34;
+      --olive-900: #3b3e2d;
+      --olive-950: #1f2117;
+
+      /* Stone (neutral grounding) */
+      --stone-50:  #fafaf9;
+      --stone-100: #f5f5f4;
+      --stone-200: #e7e5e4;
+      --stone-300: #d6d3d1;
+      --stone-400: #a8a29e;
+      --stone-500: #78716c;
+      --stone-600: #57534e;
+      --stone-700: #44403c;
+      --stone-800: #292524;
+      --stone-900: #1c1917;
+
+      /* Semantic tokens — darker, richer aesthetic inspired by 0to1withJesus */
+      --bg:         #1f2117;           /* Deep olive-950 as main background */
+      --surface:    #2a2d22;           /* Slightly lighter dark surface */
+      --surface-2:  #35392c;
+      --border:     #4a4f3c;
+      --text:       #e8e6d9;
+      --text-light: #a8a99a;
+      --accent:     #8a9269;
+      --accent-fg:  #1f2117;
+      --green:      #5a8a5e;
+      --amber:      #b07d2a;
+      --red:        #c0392b;
+
+      /* Scripture specific — warmer on dark */
+      --scripture-bg: #25281f;
+      --scripture-border: #4a4f3c;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system_ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      font-size: 15px;
+    }
+    h1, h2, h3, h4, .serif {
+      font-family: 'Instrument Serif', Georgia, serif;
+      line-height: 1.25;
+    }
+
+    /* Selection & Scrollbar */
+    ::selection { background: var(--olive-300); color: var(--olive-900); }
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: var(--olive-100); }
+    ::-webkit-scrollbar-thumb { background: var(--olive-400); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--olive-500); }
+
+    /* Layout */
+    .page { max-width: 1080px; margin: 0 auto; padding: 0 1.25rem 4rem; }
+    .section { margin-top: 2.25rem; }
+    .section-head {
+      display: flex; align-items: baseline; justify-content: space-between;
+      border-bottom: 1px solid var(--border); padding-bottom: 0.55rem; margin-bottom: 1rem;
+    }
+    .section-head h2 { font-size: 1.45rem; color: var(--text); }
+    .section-head .section-sub { font-size: 0.78rem; color: var(--text-light); }
+
+    /* Cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.35rem 1.5rem;
+    }
+    .card--dark {
+      background: var(--olive-950);
+      border-color: var(--olive-800);
+      color: var(--olive-100);
+    }
+    .card-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.09em;
+      text-transform: uppercase; color: var(--text-light); margin-bottom: 0.4rem;
+    }
+    .card-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.35rem; }
+    .card-body { font-size: 0.95rem; color: var(--text); }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 14px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+
+    /* Top Navigation — exact spirit of reference */
+    nav.topnav {
+      background: rgba(31, 33, 23, 0.85);   /* Dark glass for new theme */
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(74, 79, 60, 0.6);
+      position: sticky; top: 0; z-index: 100;
+    }
+    nav.topnav .inner {
+      max-width: 1080px; margin: 0 auto;
+      padding: 0 1.25rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 62px;
+    }
+    nav.topnav .brand {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.25rem; font-weight: 700;
+      color: #e8e6d9;
+      text-decoration: none;
+      display: flex; align-items: center; gap: 0.55rem;
+    }
+    nav.topnav .brand-dot {
+      width: 26px; height: 26px; background: var(--olive-600);
+      border-radius: 7px; display: inline-flex; align-items: center; justify-content: center;
+      color: #1f2117; font-size: 13px; flex-shrink: 0;
+    }
+    nav.topnav .nav-links {
+      display: flex; gap: 4px;
+    }
+    nav.topnav a.nav-link {
+      color: #a8a99a;
+      text-decoration: none;
+      font-size: 0.875rem; font-weight: 500;
+      padding: 0.42rem 0.85rem;
+      border-radius: 7px;
+      transition: all 0.15s ease;
+    }
+    nav.topnav a.nav-link:hover { background: rgba(138, 146, 105, 0.15); color: #e8e6d9; }
+    nav.topnav a.nav-link.active {
+      background: var(--olive-700);
+      color: #fff;
+    }
+
+    /* Week Switcher */
+    .week-switcher {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
+    .week-pill {
+      background: #25281f;
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; transition: all .15s;
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--text);
+    }
+    .week-pill:hover { background: #35392c; }
+    .week-pill.active {
+      background: var(--olive-700); color: #fff; border-color: var(--olive-700);
+    }
+    .week-pill .week-num {
+      font-family: 'Instrument Serif', serif; font-size: 0.95rem;
+    }
+
+    /* Scripture Block — lighter surface for readability on dark theme (wordy content) */
+    .scripture-block {
+      background: #f4f2e8;           /* Warm light surface for long text */
+      border: 1px solid #c9c5b3;
+      border-radius: 16px;
+      padding: 2rem 2.25rem;
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #2c2a22;                /* Dark readable text */
+    }
+    .scripture-block .ref {
+      font-family: 'Instrument Serif', serif;
+      font-size: 0.95rem; font-weight: 600;
+      color: #575d3d;
+      letter-spacing: 0.03em;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .scripture-block .text {
+      white-space: pre-line;
+    }
+    .scripture-block .verse-num {
+      font-size: 0.68rem; font-weight: 700;
+      color: #6e754b;
+      vertical-align: super;
+      margin-right: 2px;
+    }
+    .scripture-actions {
+      display: flex; gap: 10px; margin-top: 1rem; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 0.45rem 1rem;
+      font-size: 0.82rem; font-weight: 600;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .btn:hover { background: #35392c; }
+    .btn-primary {
+      background: var(--olive-700); color: #fff; border-color: var(--olive-700);
+    }
+    .btn-primary:hover { background: var(--olive-800); }
+
+    .btn-ghost {
+      background: transparent; border-color: transparent;
+      color: var(--text-light);
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.06); }
+
+    /* Resource Cards */
+    .resource-card {
+      transition: transform .2s cubic-bezier(0.4,0,0.2,1), box-shadow .2s;
+    }
+    .resource-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px -12px rgba(0,0,0,0.12);
+    }
+    .resource-tag {
+      display: inline-block;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.06em;
+      padding: 2px 8px; border-radius: 999px;
+      background: var(--olive-700); color: #f4f2e8;
+    }
+    .resource-meta { font-size: 0.78rem; color: var(--text-light); margin-top: 0.5rem; }
+
+    /* Word Study */
+    .word-study {
+      border-left: 4px solid var(--olive-500);
+      padding-left: 1rem;
+      margin: 1.1rem 0;
+    }
+    .word-hebrew {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.35rem;
+      color: #e8e6d9;
+      line-height: 1.1;
+    }
+    .word-translit {
+      font-size: 0.85rem; color: var(--text-light); font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .word-definition { font-size: 0.92rem; margin-top: 0.35rem; color: #2c2a22; }
+
+    /* Progress & Checkboxes */
+    .track-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .track-item:last-child { border-bottom: none; }
+    .track-item input[type="checkbox"] {
+      margin-top: 3px;
+      accent-color: var(--olive-600);
+    }
+    .track-label { font-weight: 500; cursor: pointer; }
+
+    /* Delta / Status badges */
+    .badge {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.05em;
+      padding: 1px 8px; border-radius: 999px; display: inline-block;
+    }
+    .badge-green { background: rgba(90,138,94,0.12); color: var(--green); }
+    .badge-amber { background: rgba(176,125,42,0.12); color: var(--amber); }
+
+    /* Notes area */
+    .notes-area {
+      width: 100%;
+      min-height: 140px;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #25281f;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      resize: vertical;
+    }
+    .notes-area:focus {
+      outline: none;
+      border-color: var(--olive-500);
+      box-shadow: 0 0 0 3px rgba(138,146,105,0.15);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.78rem;
+      color: var(--text-light);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* Small utilities */
+    .muted { color: var(--text-light); }
+    .serif-lg { font-size: 1.35rem; line-height: 1.3; }
+    .divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+    .pill {
+      display: inline-block; padding: 3px 10px; border-radius: 999px;
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.04em;
+      background: var(--olive-700); color: #f4f2e8;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       ANNUAL RHYTHM TABLE — Spreadsheet style, Friday–Saturday Sabbath weeks
+       ═══════════════════════════════════════════════════════════════════════════ */
+    .rhythm-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    .rhythm-table thead {
+      background: #35392c;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .rhythm-table th {
+      text-align: left;
+      padding: 10px 12px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #c4c9b0;
+      border-bottom: 2px solid #4a4f3c;
+      white-space: nowrap;
+    }
+    .rhythm-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+      color: var(--text);
+    }
+    .rhythm-table tbody tr:hover {
+      background: #35392c;
+    }
+    .rhythm-table tbody tr.current-week {
+      background: rgba(138, 146, 105, 0.18);
+      font-weight: 600;
+    }
+    .rhythm-table tbody tr.current-week:hover {
+      background: rgba(138, 146, 105, 0.25);
+    }
+    .rhythm-weeknum {
+      font-family: 'Instrument Serif', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--olive-700);
+      width: 42px;
+    }
+    .rhythm-dates {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+    .rhythm-title {
+      font-weight: 600;
+      color: var(--text);
+    }
+    .rhythm-theme {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-top: 1px;
+    }
+    .rhythm-reading {
+      color: var(--text-light);
+    }
+    .rhythm-reading {
+      font-size: 0.8rem;
+      color: var(--olive-700);
+    }
+    .rhythm-focus {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--olive-100);
+      color: var(--olive-700);
+      white-space: nowrap;
+    }
+    .rhythm-progress {
+      width: 92px;
+    }
+    .mini-bar {
+      height: 5px;
+      background: var(--olive-200);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .mini-bar-fill {
+      height: 100%;
+      background: var(--olive-600);
+      transition: width .3s;
+    }
+    .rhythm-jump {
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--olive-700);
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .rhythm-jump:hover {
+      background: var(--olive-600);
+      color: white;
+      border-color: var(--olive-600);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       TABS — Clean organization instead of long scroll
+       ═══════════════════════════════════════════════════════════════════════════ */
+    .main-tabs {
+      display: flex;
+      gap: 4px;
+      background: #25281f;
+      border-radius: 10px;
+      padding: 4px;
+      margin: 0 auto 1.5rem;
+      max-width: 1080px;
+      width: 100%;
+      position: sticky;
+      top: 62px;
+      z-index: 90;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .main-tab {
+      flex: 1;
+      padding: 0.55rem 0.75rem;
+      border: none;
+      background: transparent;
+      color: #a8a99a;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: center;
+    }
+    .main-tab:hover {
+      color: #e8e6d9;
+      background: rgba(255,255,255,0.06);
+    }
+    .main-tab.active {
+      background: var(--olive-700);
+      color: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .tab-pane {
+      display: none;
+    }
+    .tab-pane.active {
+      display: block;
+    }
+
+    /* Mobile-friendly Annual Rhythm table */
+    .rhythm-table-container {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    @media (max-width: 820px) {
+      .rhythm-table {
+        font-size: 0.78rem;
+      }
+      .rhythm-table th,
+      .rhythm-table td {
+        padding: 7px 8px;
+      }
+      .rhythm-progress {
+        display: none; /* Hide progress bar on small screens to save space */
+      }
+      .rhythm-focus {
+        font-size: 0.68rem;
+        padding: 1px 6px;
+      }
+      .rhythm-jump {
+        font-size: 0.72rem;
+        padding: 3px 8px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .rhythm-dates {
+        display: none; /* Hide dates on very small screens */
+      }
+      .rhythm-reading {
+        font-size: 0.72rem;
+      }
+    }
+
+    /* Responsive */
+
+    @media (max-width: 720px) {
+      .page { padding: 0 1rem 3rem; }
+      .scripture-block { padding: 1.5rem 1.35rem; font-size: 1rem; }
+      nav.topnav .inner { height: 56px; }
+    }
+
+    /* Print */
+    @media print {
+      nav, .btn, .week-switcher, .section-head button { display: none !important; }
+      .scripture-block { background: white; border: 1px solid #ddd; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="topnav">
+    <div class="inner">
+      <a href="#" class="brand" onclick="document.getElementById('current-week').scrollIntoView({behavior:'smooth'})">
+        <span class="brand-dot">✦</span>
+        <span>Sacred Rhythm</span>
+      </a>
+      <div class="nav-links">
+        <a href="#current-week" class="nav-link" onclick="document.getElementById('current-week').scrollIntoView({behavior:'smooth'})">This Week</a>
+        <a href="#the-plan" class="nav-link" onclick="document.getElementById('the-plan').scrollIntoView({behavior:'smooth'})">Annual Rhythm</a>
+        <a href="#deep-dive" class="nav-link" onclick="document.getElementById('deep-dive').scrollIntoView({behavior:'smooth'})">Deep Dive</a>
+        <a href="#resources" class="nav-link" onclick="document.getElementById('resources').scrollIntoView({behavior:'smooth'})">Resources</a>
+        <a href="#group" class="nav-link" onclick="document.getElementById('group').scrollIntoView({behavior:'smooth'})">Group</a>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px; font-size:0.8rem;">
+        <span class="muted" style="font-size:0.72rem;" id="group-name-display"></span>
+        <span class="pill" id="plan-name-display"></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Tab Navigation -->
+  <div class="main-tabs" id="main-tabs">
+    <button class="main-tab active" data-tab="this-week">This Week</button>
+    <button class="main-tab" data-tab="annual-rhythm">Annual Rhythm</button>
+    <button class="main-tab" data-tab="group">Group</button>
+    <button class="main-tab" data-tab="deep-dive">Deep Dive</button>
+    <button class="main-tab" data-tab="library">Library</button>
+  </div>
+
+  <div class="page">
+
+    <!-- ==================== TAB: This Week ==================== -->
+    <div id="tab-this-week" class="tab-pane active">
+
+    <!-- HERO / CURRENT WEEK -->
+    <div id="current-week" class="section" style="margin-top:1.75rem;">
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+        <div>
+          <div class="pill" style="margin-bottom:0.5rem;" id="week-dates"></div>
+          <h1 id="week-title" class="serif" style="font-size:2.1rem; line-height:1.15;"></h1>
+          <p id="week-theme" class="serif-lg muted" style="margin-top:0.25rem;"></p>
+        </div>
+        <div class="week-switcher" id="week-switcher">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Tracks enabled -->
+      <div style="margin-top:1rem; display:flex; flex-wrap:wrap; gap:8px;" id="track-toggles">
+        <!-- JS injected checkboxes for tracks -->
+      </div>
+    </div>
+
+    <!-- SCRIPTURE READING -->
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <h2 class="serif">This Week's Reading</h2>
+          <span class="section-sub">ESV primary • NIV available</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <label style="display:flex; align-items:center; gap:6px; font-size:0.8rem; cursor:pointer;">
+            <input type="checkbox" id="show-original-languages" onchange="renderReadings()">
+            <span>Show Original Languages (Hebrew/Greek)</span>
+          </label>
+          <button onclick="refreshAllBibleText()" class="btn btn-ghost">↻ Refresh text</button>
+        </div>
+      </div>
+
+      <div id="readings-container" class="grid-2">
+        <!-- Populated dynamically per week -->
+      </div>
+    </div>
+
+    <!-- FORMATION + SCHOLARS -->
+    <div class="section" id="formation">
+      <div class="section-head">
+        <h2 class="serif">Formation &amp; Companions</h2>
+        <span class="section-sub">John Mark Comer + trusted voices</span>
+      </div>
+
+      <div class="grid-2" id="formation-cards">
+        <!-- JS populated resource cards -->
+      </div>
+    </div>
+
+      <!-- Supplemental Materials & Context -->
+      <div class="section">
+        <div class="section-head">
+          <h2 class="serif">Supplemental Materials &amp; Context</h2>
+          <span class="section-sub">Extracted insights from respected resources</span>
+        </div>
+        <div id="supplemental-materials">
+          <!-- Populated from week.supplementals + PTW + Sacraments guidance -->
+        </div>
+      </div>
+
+    </div> <!-- /tab-this-week -->
+
+    <!-- ==================== TAB: Deep Dive (Languages) ==================== -->
+    <div id="tab-deep-dive" class="tab-pane">
+
+    <!-- DEEP DIVE / WORD STUDIES -->
+    <div class="section" id="deep-dive">
+      <div class="section-head">
+        <div>
+          <h2 class="serif">Go Deeper — Languages</h2>
+          <span class="section-sub">Key Hebrew &amp; Greek terms in this week’s text</span>
+        </div>
+      </div>
+
+      <div class="card" style="background:#f4f2e8; color:#2c2a22;">
+        <div id="word-studies-container" class="grid-2">
+          <!-- Populated by JS -->
+        </div>
+        <div style="margin-top:1rem; font-size:0.78rem; color:var(--text-light);">
+          These studies are curated starting points. Use Blue Letter Bible, StepBible, or your printed lexicons for extended work.
+        </div>
+      </div>
+    </div>
+
+    </div> <!-- /tab-deep-dive -->
+
+    <!-- ==================== TAB: Annual Rhythm ==================== -->
+    <div id="tab-annual-rhythm" class="tab-pane">
+
+    <!-- ANNUAL RHYTHM - Friday-Saturday Sabbath aligned 52-week view -->
+    <div class="section" id="the-plan">
+      <div class="section-head">
+        <h2 class="serif">Annual Rhythm</h2>
+        <span class="section-sub">Friday–Saturday weeks • Auto-detected current position</span>
+      </div>
+
+      <!-- Current Position Banner -->
+      <div id="rhythm-position-banner" class="card" style="margin-bottom:1rem; background:var(--olive-950); color:var(--olive-100); border-color:var(--olive-800);">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="card" style="padding:0; overflow:hidden;">
+        <div class="rhythm-table-container">
+          <div id="annual-rhythm-table">
+            <!-- Spreadsheet-style table rendered by JS -->
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:0.6rem; font-size:0.72rem; color:var(--text-light);">
+        Weeks run Friday–Saturday to honor a traditional Sabbath rhythm. Change <code>yearStart</code> in the config to match your group’s start date.
+      </div>
+    </div>
+
+    </div> <!-- /tab-annual-rhythm -->
+
+    <!-- ==================== TAB: Group ==================== -->
+    <div id="tab-group" class="tab-pane">
+
+    <!-- GROUP RHYTHM -->
+    <div class="section" id="group">
+      <div class="section-head">
+        <h2 class="serif">Group Rhythm</h2>
+        <span class="section-sub">Practice check-in • Discussion questions from respected teachers • Take-home reflections</span>
+      </div>
+
+      <!-- Practice Check-in (the heart of effective formation groups) -->
+      <div class="card" style="margin-bottom:1rem;">
+        <div class="card-label" style="margin-bottom:0.6rem;">This Week’s Practice Check-in</div>
+        <div style="font-size:0.9rem; color:var(--stone-600); margin-bottom:0.75rem;">
+          How did the core practices go this week? Be honest. This is the most important part of group life.
+        </div>
+
+        <div id="practice-checkin-list">
+          <!-- Dynamically populated based on current week's Comer practices + core rhythms -->
+        </div>
+
+        <div style="margin-top:1rem;">
+          <div class="card-label" style="margin-bottom:0.3rem;">Group Reflection on Practices</div>
+          <textarea id="practice-notes" class="notes-area" style="min-height:90px;" 
+                    placeholder="What resistance showed up? Where did we (or I) experience God? What are we learning about trust, hurry, delight, etc.?"></textarea>
+        </div>
+      </div>
+
+      <!-- Group Discussion & Breakout Questions -->
+      <div class="card" style="margin-bottom:1rem;">
+        <div class="card-label" style="margin-bottom:0.5rem;">Group Discussion / Breakout Questions</div>
+        <div style="font-size:0.85rem; color:var(--text-light); margin-bottom:0.6rem;">
+          Use these for triads or full group discussion. Drawn from respected teachers and study resources.
+        </div>
+        <div id="group-discussion-questions">
+          <!-- Populated from week data -->
+        </div>
+      </div>
+
+      <!-- Take-Home Reflections -->
+      <div class="card">
+        <div class="card-label" style="margin-bottom:0.5rem;">Take-Home Reflections</div>
+        <div style="font-size:0.85rem; color:var(--text-light); margin-bottom:0.6rem;">
+          Personal application prompts for the week ahead. Consider journaling on one.
+        </div>
+        <div id="take-home-reflections">
+          <!-- Populated from week data -->
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Reflection Prompts + Notes -->
+        <div class="card">
+          <div class="card-label">Scripture &amp; Formation Prompts</div>
+          <div id="reflection-prompts" style="margin:0.5rem 0 0.8rem;"></div>
+
+          <div style="margin-top:0.7rem;">
+            <div class="card-label" style="margin-bottom:0.3rem;">Group Notes &amp; Highlights</div>
+            <textarea id="group-notes" class="notes-area" placeholder="What stood out from the text? What is the Spirit highlighting for us as a group this week?"></textarea>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+              <button onclick="saveNotes()" class="btn">Save notes</button>
+              <span id="notes-saved" class="muted" style="font-size:0.72rem;"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Participation + Meeting Support -->
+        <div class="card">
+          <div class="card-label">Weekly Participation</div>
+          <div id="participation-tracks" style="margin-top:0.4rem;">
+            <!-- JS populated -->
+          </div>
+
+          <div style="margin-top:1rem; padding-top:0.9rem; border-top:1px solid var(--border);">
+            <div class="card-label">Overall Plan Progress</div>
+            <div style="display:flex; align-items:center; gap:10px; margin-top:0.35rem;">
+              <div style="flex:1; height:7px; background:var(--olive-200); border-radius:999px; overflow:hidden;">
+                <div id="overall-progress-bar" style="height:100%; background:var(--olive-600); width:0%; transition:width .4s;"></div>
+              </div>
+              <div id="overall-progress-text" class="serif" style="font-size:1rem; font-weight:600; min-width:46px;"></div>
+            </div>
+          </div>
+
+          <!-- Suggested meeting rhythm (very helpful for groups) -->
+          <div style="margin-top:1.1rem; padding:0.7rem 0.85rem; background:var(--olive-50); border-radius:8px; font-size:0.78rem;">
+            <strong style="color:var(--olive-700);">Suggested Group Flow (60–90 min)</strong><br>
+            1. Practice Check-in (Sabbath + Scripture + this week’s Comer practice)<br>
+            2. Scripture + Discussion Questions (use breakout questions below)<br>
+            3. Take-Home Reflections &amp; personal commitments<br>
+            4. Prayer &amp; accountability
+          </div>
+        </div>
+      </div>
+
+      <!-- Simple Rule of Life reflection (PTW aligned) -->
+      <div class="card" style="margin-top:1rem;">
+        <div class="card-label">Personal / Group Rule of Life (in progress)</div>
+        <div style="font-size:0.9rem; margin-bottom:0.6rem; color:var(--text-light);">
+          A Rule of Life is simply a set of rhythms and practices that help you stay connected to Jesus. What 2–3 practices feel most life-giving for you right now?
+        </div>
+        <textarea id="rule-of-life-notes" class="notes-area" style="min-height:70px;" placeholder="My current Rule of Life: Daily Scripture + Weekly Sabbath + Monthly solitude..."></textarea>
+        <div style="font-size:0.72rem; color:var(--text-light); margin-top:4px;">Saved locally. Revisit this monthly with your group.</div>
+      </div>
+    </div> <!-- /tab-group -->
+
+    <!-- ==================== TAB: Library ==================== -->
+    <div id="tab-library" class="tab-pane">
+
+    <!-- RESOURCES LIBRARY (moved here for tab organization) -->
+    <div class="section" id="resources">
+      <div class="section-head">
+        <h2 class="serif">Library &amp; Resources</h2>
+        <span class="section-sub">Books and courses worth owning</span>
+      </div>
+
+      <div class="grid-3" id="resources-library">
+        <!-- Static + dynamic cards -->
+      </div>
+
+      <!-- The 9 Practices from Practicing the Way -->
+      <div class="section" style="margin-top:1.5rem;">
+        <div class="section-head">
+          <h2 class="serif">The 9 Practices</h2>
+          <span class="section-sub">From Practicing the Way • johnmarkcomer</span>
+        </div>
+        <div class="card">
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap:8px;">
+            ${['Sabbath','Prayer','Fasting','Solitude','Generosity','Scripture','Community','Service','Witness'].map(p => `
+              <a href="https://www.practicingtheway.org/practices/${p.toLowerCase()}" target="_blank" class="btn" style="text-align:center; font-size:0.8rem; padding:0.5rem;">
+                ${p}
+              </a>
+            `).join('')}
+          </div>
+          <div style="margin-top:0.75rem; font-size:0.78rem;">
+            Each practice has free guides, videos, and companion material. Highly recommended for your group rhythm.
+            <a href="https://www.practicingtheway.org/" target="_blank" style="color:var(--olive-500);">Visit Practicing the Way →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div> <!-- /tab-library -->
+
+    <footer>
+      <div>
+        Sacred Rhythm — a reusable scaffold for any group.<br>
+        Built with care. Open <code>index.html</code> to customize.
+      </div>
+      <div style="text-align:right;">
+        Bible text via Bolls.life (ESV/NIV) • Design language from Emporia<br>
+        <span style="opacity:0.6;">v0.2 • Annual Rhythm + Practice Check-in • Local-first</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       CONFIG — EDIT THIS SECTION TO MAKE IT YOURS
+       This is the entire reusable scaffold. Any group can fork and edit here.
+  ═══════════════════════════════════════════════════════════════════════════ -->
+  <script>
+    // ──────────────────────────────────────────────────────────────────────────
+    // STUDY CONFIG — The single source of truth for your group
+    // ──────────────────────────────────────────────────────────────────────────
+    const STUDY_CONFIG = {
+      groupName: "The Table",
+      planName: "Bible in a Year + Practicing the Way",
+
+      // === YEAR START DATE (Friday of Week 1) ===
+      // This is the key for the Friday–Saturday Sabbath rhythm.
+      // Change this to whenever your group actually begins.
+      // Format: "YYYY-MM-DD" — the code will treat this Friday as Week 1.
+      yearStart: "2026-01-02",   // Example: First Friday of 2026
+
+      // Current week (1-indexed). Change this to jump everyone to a new week.
+      currentWeek: 3,
+
+      // ── The actual plan ─────────────────────────────────────────────────────
+      weeks: [
+        {
+          id: 1,
+          title: "In the Beginning",
+          theme: "God creates and calls everything good",
+          dates: "Jan 1–7",
+          readings: [
+            { ref: "Genesis 1", label: "Creation" },
+            { ref: "Genesis 2", label: "The Garden" },
+            { ref: "Genesis 3", label: "The Fall" }
+          ],
+          comer: [
+            {
+              title: "The Ruthless Elimination of Hurry",
+              subtitle: "Week 1 Practice: Silence & Solitude",
+              why: "Comer argues that hurry is the great enemy of spiritual life. This week we begin the counter-practice.",
+              action: "Schedule one 10-minute block of complete silence this week. No phone, no book, no agenda.",
+              link: "https://practicingtheway.org"
+            }
+          ],
+          scholars: [
+            {
+              author: "N.T. Wright",
+              title: "The New Testament and the People of God",
+              note: "Read the opening chapters on the Jewish story and creation theology.",
+              link: "https://www.amazon.com/New-Testament-People-God/dp/0800626818"
+            }
+          ],
+          wordStudies: [
+            {
+              ref: "Genesis 1:1",
+              term: "בְּרֵאשִׁית",
+              translit: "Bereshit",
+              english: "In the beginning",
+              meaning: "Not just a timestamp. It carries the sense of 'at the head of all things' — the origin, the foundation, the first principle from which everything flows.",
+              significance: "The story does not begin with chaos or human striving. It begins with God. This is the most radical claim in Scripture."
+            },
+            {
+              ref: "Genesis 1:31",
+              term: "טוֹב מְאֹד",
+              translit: "Tov Me'od",
+              english: "Very good",
+              meaning: "Tov = good, pleasant, beautiful, right. Me'od = exceedingly, abundantly. The creation is not 'good enough' — it is extravagantly good.",
+              significance: "The material world is not a mistake or a prison for the soul. It is the arena of God's delight."
+            }
+          ],
+          prompts: [
+            "Where do you see God's 'very good' design still visible in the world around you?",
+            "How does the story of the Fall show up in your own hurried life?"
+          ]
+        },
+        {
+          id: 2,
+          title: "The Call of Abram",
+          theme: "Leaving everything for a promise",
+          dates: "Jan 8–14",
+          readings: [
+            { ref: "Genesis 12", label: "The Call" },
+            { ref: "Genesis 15", label: "The Covenant" },
+            { ref: "Genesis 17", label: "The Sign" }
+          ],
+          comer: [
+            {
+              title: "Practicing the Way — Apprenticeship",
+              subtitle: "The Practice of 'With God' Life",
+              why: "Comer frames discipleship as apprenticeship to Jesus. Abraham's journey is the prototype of leaving security for formation.",
+              action: "Identify one 'security' you are being invited to loosen your grip on this month.",
+              link: "https://practicingtheway.org/practices"
+            }
+          ],
+          scholars: [
+            {
+              author: "N.T. Wright",
+              title: "Abraham and the People of God",
+              note: "Excellent treatment of covenant and promise in 'The New Testament and the People of God' ch. 9–10.",
+              link: ""
+            }
+          ],
+          wordStudies: [
+            {
+              ref: "Genesis 12:1",
+              term: "לֶךְ־לְךָ",
+              translit: "Lekh Lekha",
+              english: "Go forth (for yourself)",
+              meaning: "A double imperative. Not just 'go' but 'go for your own sake / to yourself'. The journey is both missional and deeply personal.",
+              significance: "God's call always disrupts comfort but is never arbitrary. It is the path into the person you were created to become."
+            },
+            {
+              ref: "Genesis 15:6",
+              term: "וְהֶאֱמִן",
+              translit: "He'emin",
+              english: "He believed / trusted",
+              meaning: "From the root אמן (aman) — to be firm, to be steady, to nurse a child. Faith here is not intellectual assent but leaning one's whole weight on the promise.",
+              significance: "This is the verse Paul quotes in Romans 4. Righteousness is credited to those who trust the promise-keeping God."
+            }
+          ],
+          prompts: [
+            "What would it look like for you to 'go' in radical trust this year?",
+            "Where has God been faithful even when the timeline looked impossible?"
+          ]
+        },
+        {
+          id: 3,
+          title: "The God Who Sees",
+          theme: "Hagar, Ishmael, and the God who meets us in the wilderness",
+          dates: "Jan 15–21",
+          readings: [
+            { ref: "Genesis 16", label: "Hagar & Ishmael" },
+            { ref: "Genesis 21:8-21", label: "Sent Away" }
+          ],
+          comer: [
+            {
+              title: "The Ruthless Elimination of Hurry",
+              subtitle: "The Practice of Sabbath",
+              why: "Hagar's story is one of being seen by God when everyone else has abandoned her. Sabbath is the weekly practice of remembering we are seen and loved even when we produce nothing.",
+              action: "This week, practice a full 24-hour digital Sabbath. No work. No scrolling. Only presence.",
+              link: "https://practicingtheway.org"
+            }
+          ],
+          scholars: [
+            {
+              author: "N.T. Wright",
+              title: "The Way of the Lord",
+              note: "Wright's treatment of the Abrahamic promises and the inclusion of the outsider is profound.",
+              link: ""
+            },
+            {
+              author: "Dr. Esau McCaulley",
+              title: "Reading While Black",
+              note: "Chapter on Hagar and the God who sees the marginalized. Essential.",
+              link: "https://www.amazon.com/Reading-While-Black-African-American/dp/083085486X"
+            }
+          ],
+          wordStudies: [
+            {
+              ref: "Genesis 16:13",
+              term: "אֵל רֳאִי",
+              translit: "El Roi",
+              english: "The God Who Sees Me",
+              meaning: "Hagar is the first person in Scripture to give God a name. She names Him from her place of abandonment and pain.",
+              significance: "The God of the Bible is not only the God of the powerful. He is the God who sees the servant girl, the refugee, the one cast out."
+            },
+            {
+              ref: "Genesis 21:17",
+              term: "אֱלֹהִים שָׁמַע",
+              translit: "Elohim Shama",
+              english: "God has heard",
+              meaning: "The angel tells Hagar: 'God has heard the voice of the boy where he is.' Not where he should be. Where he is.",
+              significance: "God's attentiveness is not dependent on our performance or location. He hears us in the wilderness."
+            }
+          ],
+          prompts: [
+            "When have you felt 'seen' by God in a season when others overlooked you?",
+            "Who in your life right now might be living in a 'wilderness' that God is inviting you to notice?"
+          ]
+        },
+        {
+          id: 4,
+          title: "The Binding of Isaac",
+          theme: "The test that reveals the heart of God",
+          dates: "Jan 22–28",
+          readings: [
+            { ref: "Genesis 22", label: "The Akedah" }
+          ],
+          comer: [
+            {
+              title: "Practicing the Way — Fasting",
+              subtitle: "Learning to hunger for God alone",
+              why: "The Akedah is the ultimate story of relinquishment. Fasting is the spiritual practice that trains us to release what we clutch most tightly.",
+              action: "Choose one meal this week to fast and pray specifically for someone you love who is far from God.",
+              link: "https://practicingtheway.org"
+            }
+          ],
+          scholars: [
+            {
+              author: "Søren Kierkegaard",
+              title: "Fear and Trembling",
+              note: "The classic philosophical meditation on Abraham's silence and the 'teleological suspension of the ethical.'",
+              link: ""
+            }
+          ],
+          wordStudies: [
+            {
+              ref: "Genesis 22:2",
+              term: "יְחִידְךָ",
+              translit: "Yechidcha",
+              english: "Your only son, whom you love",
+              meaning: "The Hebrew emphasizes uniqueness and belovedness. Isaac is not just a son — he is the only one, the beloved one.",
+              significance: "The command is almost unbearable. This is why the early church read this text as a type of the Father offering the Son."
+            },
+            {
+              ref: "Genesis 22:14",
+              term: "יְהוָה יִרְאֶה",
+              translit: "YHWH Yireh",
+              english: "The LORD Will Provide",
+              meaning: "Literally 'the LORD sees' or 'the LORD will see to it.' The place where God provides is the place where we release control.",
+              significance: "On the mountain of sacrifice, God provides the ram. On the hill of Golgotha, God provides the Lamb."
+            }
+          ],
+          prompts: [
+            "What 'Isaac' are you being invited to place on the altar?",
+            "How does this story change when you remember that the God who asked Abraham for his son is the same God who gave His own Son?"
+          ]
+        },
+        {
+          id: 5,
+          title: "The God of Abraham, Isaac & Jacob",
+          theme: "Covenant faithfulness across generations",
+          dates: "Jan 29 – Feb 4",
+          readings: [
+            { ref: "Genesis 25-28", label: "Jacob's story begins" },
+            { ref: "Genesis 32", label: "Wrestling with God" }
+          ],
+          comer: [
+            {
+              title: "Practicing the Way — Prayer",
+              subtitle: "The Practice of Conversational Prayer",
+              why: "Jacob's night of wrestling is one of the most honest prayers in Scripture. Prayer is not performance — it is real relationship, including struggle.",
+              action: "This week, practice 10 minutes of completely honest, conversational prayer (no formality required).",
+              link: "https://practicingtheway.org"
+            }
+          ],
+          scholars: [
+            {
+              author: "N.T. Wright",
+              title: "The New Testament and the People of God",
+              note: "Excellent section on the patriarchs and the formation of Israel’s identity.",
+              link: ""
+            }
+          ],
+          wordStudies: [
+            {
+              ref: "Genesis 32:28",
+              term: "יִשְׂרָאֵל",
+              translit: "Yisra'el",
+              english: "Israel — He strives with God",
+              meaning: "Jacob is renamed after a night of wrestling. The name means both 'God strives' and 'he who strives with God'.",
+              significance: "Faithful relationship with God often involves honest struggle, not passive agreement."
+            }
+          ],
+          prompts: [
+            "Where have you 'wrestled' with God and come out changed?",
+            "How does your prayer life compare to Jacob’s raw honesty?"
+          ]
+        },
+        {
+          id: 6,
+          title: "Joseph: From Pit to Palace",
+          theme: "Suffering, sovereignty, and reconciliation",
+          dates: "Feb 5–11",
+          readings: [
+            { ref: "Genesis 37", label: "Sold into slavery" },
+            { ref: "Genesis 39-41", label: "Prison to power" },
+            { ref: "Genesis 45", label: "Reconciliation" }
+          ],
+          comer: [
+            {
+              title: "The Ruthless Elimination of Hurry",
+              subtitle: "The Practice of Simplicity",
+              why: "Joseph’s story shows how God works through long seasons of hiddenness and injustice. Simplicity helps us stay present to what God is doing in the waiting.",
+              action: "Remove one thing from your life this week that is creating noise or hurry.",
+              link: "https://practicingtheway.org"
+            }
+          ],
+          scholars: [
+            {
+              author: "Tim Keller",
+              title: "The Meaning of Marriage / various talks on Genesis",
+              note: "Keller’s teaching on Joseph and the hidden work of God in suffering is excellent for groups.",
+              link: ""
+            }
+          ],
+          wordStudies: [],
+          prompts: [
+            "Where do you see God’s sovereignty in the middle of human evil in this story?",
+            "How does Joseph’s eventual forgiveness speak to areas of pain in your own story?"
+          ]
+        },
+        {
+          id: 7,
+          title: "Delivered — The Exodus",
+          theme: "God hears, remembers, and rescues",
+          dates: "Feb 12–18",
+          readings: [
+            { ref: "Exodus 1-3", label: "Moses & the burning bush" },
+            { ref: "Exodus 7-12", label: "The plagues & Passover" },
+            { ref: "Exodus 14-15", label: "The Red Sea" }
+          ],
+          comer: [
+            {
+              title: "Practicing the Way — The Scripture Practice",
+              subtitle: "Reading the Bible as formation",
+              why: "The Exodus is the defining story of God’s deliverance. It is meant to shape our identity and imagination more than just inform us.",
+              action: "Read the Exodus narrative slowly this week as if it is your own story (because in Christ, it is).",
+              link: "https://practicingtheway.org"
+            }
+          ],
+          scholars: [
+            {
+              author: "N.T. Wright",
+              title: "Paul and the Faithfulness of God",
+              note: "Deep treatment of Exodus themes in the New Testament imagination.",
+              link: ""
+            }
+          ],
+          wordStudies: [
+            {
+              ref: "Exodus 3:14",
+              term: "אֶהְיֶה אֲשֶׁר אֶהְיֶה",
+              translit: "Ehyeh Asher Ehyeh",
+              english: "I AM WHO I AM",
+              meaning: "God’s self-revelation to Moses. Not a philosophical abstraction — a promise of presence and faithfulness.",
+              significance: "The God who sends is the God who stays. This name becomes central to Jesus’ own self-understanding."
+            }
+          ],
+          prompts: [
+            "What 'Egypt' has God delivered you from, or is currently delivering you from?",
+            "How does the Passover point forward to Jesus?"
+          ],
+          groupDiscussionQuestions: [
+            "The Exodus is one of the most historically significant claims in the Bible. What evidence or arguments have you heard for or against its historicity? (Wes Huff and others have addressed this in detail.)",
+            "How does the repeated phrase 'I am the Lord your God, who brought you out of Egypt' shape Israel's identity? How should it shape ours?",
+            "In what ways does the story of the Exodus confront our modern tendency to trust in our own strength or systems rather than God's deliverance?"
+          ],
+          takeHomeReflections: [
+            "Spend time this week journaling: 'Where am I still living as if I am still in Egypt?'",
+            "Read one of Wes Huff’s talks or videos on the reliability of the Old Testament this week and note one thing that strengthened your confidence in Scripture.",
+            "Practice telling the Exodus story in your own words to someone this week (or record yourself)."
+          ]
+        },
+        {
+          id: 8,
+          title: "Wilderness Formation",
+          theme: "Learning to trust God in the in-between",
+          dates: "Feb 19–25",
+          readings: [
+            { ref: "Exodus 16-17", label: "Manna & water" },
+            { ref: "Exodus 19-20", label: "Sinai & the Ten Commandments" },
+            { ref: "Numbers 11-14", label: "Complaint, spies & rebellion" }
+          ],
+          comer: [
+            {
+              title: "Practicing the Way — Fasting",
+              subtitle: "Hungering for God in the wilderness",
+              why: "The wilderness is where Israel learned (or failed to learn) dependence. Fasting is one of the primary ways we practice trust when we don’t have what we think we need.",
+              action: "Choose one day this week to fast from food or a comfort (social media, entertainment) and notice what rises in you.",
+              link: "https://practicingtheway.org"
+            }
+          ],
+          scholars: [],
+          wordStudies: [],
+          prompts: [
+            "Where do you see yourself in Israel’s pattern of complaint and forgetfulness?",
+            "What 'manna' has God provided in your current wilderness season that you’ve been taking for granted?"
+          ]
+        },
+        {
+          id: 9,
+          title: "The Tabernacle — God With Us",
+          theme: "Making space for the presence of God",
+          dates: "Feb 26 – Mar 4",
+          readings: [
+            { ref: "Exodus 25-27", label: "Instructions for the Tabernacle" },
+            { ref: "Exodus 35-40", label: "Building & filling the Tabernacle" }
+          ],
+          comer: [
+            {
+              title: "Practicing the Way — Community",
+              subtitle: "The Practice of Life Together",
+              why: "The Tabernacle was the place where God dwelled among His people. We are now the temple. Community is how we host God's presence together.",
+              action: "This week, practice intentional presence with 2-3 people in your group outside of the main meeting (meal, walk, honest conversation).",
+              link: "https://practicingtheway.org"
+            }
+          ],
+          scholars: [],
+          wordStudies: [],
+          prompts: [
+            "What would it look like for your group to more intentionally 'make space' for God's presence together?",
+            "How does the idea that we are now the temple change how you view ordinary relationships?"
+          ]
+        },
+        {
+          id: 10,
+          title: "Holiness — Leviticus",
+          theme: "You shall be holy, for I am holy",
+          dates: "Mar 5–11",
+          readings: [
+            { ref: "Leviticus 1-7", label: "Offerings & sacrifices" },
+            { ref: "Leviticus 16", label: "Day of Atonement" },
+            { ref: "Leviticus 19", label: "Holiness code" }
+          ],
+          comer: [
+            {
+              title: "Practicing the Way — Fasting",
+              subtitle: "Dying to self and appetite",
+              why: "The sacrificial system teaches us that approaching God costs something. Fasting is a small participation in that reality.",
+              action: "Practice a 24-hour fast this week while meditating on Leviticus 19:2.",
+              link: "https://practicingtheway.org"
+            }
+          ],
+          scholars: [
+            {
+              author: "Richard Bauckham",
+              title: "The Bible in the Contemporary World",
+              note: "Helpful on how Leviticus shapes Christian ethics and imagination.",
+              link: ""
+            }
+          ],
+          wordStudies: [],
+          prompts: [
+            "Why is 'be holy as I am holy' both terrifying and attractive?",
+            "How does the Day of Atonement point forward to Jesus?"
+          ]
+        },
+        {
+          id: 11,
+          title: "Numbers — Wilderness Complaints",
+          theme: "The long road of formation and unbelief",
+          dates: "Mar 12–18",
+          readings: [
+            { ref: "Numbers 11-14", label: "Complaining, spies & Kadesh Barnea" },
+            { ref: "Numbers 20-21", label: "More rebellion & the bronze serpent" }
+          ],
+          comer: [
+            {
+              title: "The Ruthless Elimination of Hurry",
+              subtitle: "The Practice of Silence & Solitude",
+              why: "In the wilderness, Israel kept filling the silence with complaints. Silence is the practice that exposes what we really trust.",
+              action: "Spend 20 minutes in silence this week. Bring a journal. Notice what rises when there is no distraction.",
+              link: "https://practicingtheway.org"
+            }
+          ],
+          scholars: [],
+          wordStudies: [],
+          prompts: [
+            "Where do you see the pattern of 'we are not able' (Num 13:31) in your own life or group?",
+            "How does the bronze serpent story (Num 21) connect to John 3?"
+          ]
+        },
+        {
+          id: 12,
+          title: "Deuteronomy — Covenant Renewal",
+          theme: "Remember who you are and who God is",
+          dates: "Mar 19–25",
+          readings: [
+            { ref: "Deuteronomy 6-8", label: "The Shema & warnings" },
+            { ref: "Deuteronomy 30", label: "Choose life" }
+          ],
+          comer: [
+            {
+              title: "Practicing the Way — Prayer",
+              subtitle: "The Shema as daily formation",
+              why: "Deuteronomy 6 is the most repeated prayer in the Bible for a reason. It is meant to form the heart daily.",
+              action: "Pray the Shema (Deut 6:4-9) slowly every morning and evening this week.",
+              link: "https://practicingtheway.org"
+            }
+          ],
+          scholars: [
+            {
+              author: "N.T. Wright",
+              title: "Paul and the Faithfulness of God",
+              note: "Deep work on how Deuteronomy shapes the entire biblical story and Jesus’ mission.",
+              link: ""
+            }
+          ],
+          wordStudies: [
+            {
+              ref: "Deuteronomy 6:4",
+              term: "שְׁמַע יִשְׂרָאֵל",
+              translit: "Shema Yisra'el",
+              english: "Hear, O Israel",
+              meaning: "Not just 'listen' but 'listen and obey with your whole being'.",
+              significance: "This is the center of Jewish (and Christian) daily spiritual formation."
+            }
+          ],
+          prompts: [
+            "What does it look like for your group to 'love the Lord your God with all your heart' together?",
+            "Where have you seen the 'forgetfulness' Deuteronomy warns against in your own story?"
+          ],
+          groupDiscussionQuestions: [
+            "The Shema (Deut 6:4-9) was meant to be recited daily. Why do you think God commanded such constant repetition? What happens in us when we stop regularly remembering who God is?",
+            "Deuteronomy emphasizes both grace (God’s prior love and deliverance) and the call to wholehearted obedience. How do we hold these together without falling into legalism or cheap grace?",
+            "How might regularly meditating on the Shema reshape the way we approach technology, hurry, and divided loyalties in our daily lives?"
+          ],
+          takeHomeReflections: [
+            "This week, recite the Shema out loud morning and evening. Journal what shifts in your heart over 7 days.",
+            "Identify one 'forgetfulness' pattern in your life (anxiety, control, people-pleasing, etc.) and bring it into conversation with God daily."
+          ]
+        },
+        {
+          id: 13,
+          title: "Joshua — Crossing Over",
+          theme: "Faith, courage, and the faithfulness of God",
+          dates: "Mar 26 – Apr 1",
+          readings: [
+            { ref: "Joshua 1-3", label: "Crossing the Jordan" },
+            { ref: "Joshua 5-6", label: "Jericho" },
+            { ref: "Joshua 24", label: "Choose this day whom you will serve" }
+          ],
+          comer: [
+            {
+              title: "Practicing the Way — Witness",
+              subtitle: "Bearing the name of Jesus",
+              why: "Joshua’s charge is our charge: be strong and courageous because the Lord is with us. Witness flows from that confidence.",
+              action: "Identify one person this week with whom you will have a spiritual conversation (not a pitch).",
+              link: "https://practicingtheway.org"
+            }
+          ],
+          scholars: [],
+          wordStudies: [],
+          prompts: [
+            "What 'Jordan' is your group being invited to cross together?",
+            "How does Joshua 24:15 land differently when read in community?"
+          ]
+        },
+        {
+          id: 14,
+          title: "Judges — The Cycle of Sin & Deliverance",
+          theme: "The human heart and the persistent mercy of God",
+          dates: "Apr 2–8",
+          readings: [
+            { ref: "Judges 2-3", label: "The cycle explained" },
+            { ref: "Judges 6-7", label: "Gideon" },
+            { ref: "Judges 13-16", label: "Samson" }
+          ],
+          comer: [
+            {
+              title: "Practicing the Way — Scripture",
+              subtitle: "Reading the Bible as a mirror",
+              why: "Judges is brutally honest about human nature. It forces us to see ourselves and our need for a true King (Jesus).",
+              action: "As you read Judges this week, ask: 'Where do I see my own patterns in these stories?'",
+              link: "https://practicingtheway.org"
+            }
+          ],
+          scholars: [],
+          wordStudies: [],
+          prompts: [
+            "Why do you think the book of Judges ends with 'everyone did what was right in his own eyes'?",
+            "How does the repeated failure in Judges make the need for Jesus clearer?"
+          ],
+          groupDiscussionQuestions: [
+            "The book of Judges shows a repeated cycle of sin, oppression, crying out, and deliverance. Where do you see this same cycle in your own life or in our culture today?",
+            "The text is brutally honest about human nature and leadership failure. How does this honesty actually strengthen the credibility of Scripture rather than weaken it?",
+            "Many of the 'heroes' in Judges are deeply flawed. What does this teach us about how God works through imperfect people?"
+          ],
+          takeHomeReflections: [
+            "Identify one area in your life right now where you are 'doing what is right in your own eyes.' Bring it honestly to God this week.",
+            "Reflect: In what ways am I looking for a human savior or system instead of trusting the true King (Jesus)?"
+          ]
+        },
+        {
+          id: 15,
+          title: "Ruth — Loyalty & Redemption",
+          theme: "Unexpected grace in the family line of Jesus",
+          dates: "Apr 9–15",
+          readings: [{ ref: "Ruth 1-4", label: "The whole book" }],
+          comer: [{ title: "Practicing the Way", subtitle: "The Practice of Generosity", why: "Ruth shows radical loyalty and generosity across ethnic and economic lines.", action: "Practice generous hospitality or financial generosity this week toward someone outside your normal circle.", link: "https://practicingtheway.org" }],
+          scholars: [],
+          wordStudies: [],
+          prompts: ["Where is God working through 'unlikely' people in your story right now?"]
+        },
+        {
+          id: 16,
+          title: "1 Samuel — The Rise of a King",
+          theme: "God looks at the heart",
+          dates: "Apr 16–22",
+          readings: [{ ref: "1 Samuel 16-17", label: "David anointed & Goliath" }],
+          comer: [{ title: "Practicing the Way", subtitle: "The Practice of Service", why: "David’s early life shows humble service before power.", action: "Serve someone this week in a hidden way (no one needs to know).", link: "https://practicingtheway.org" }],
+          scholars: [],
+          wordStudies: [],
+          prompts: []
+        },
+        {
+          id: 17,
+          title: "David & Saul — The Long Road to the Throne",
+          theme: "Waiting, character, and not seizing what God has promised",
+          dates: "Apr 23–29",
+          readings: [{ ref: "1 Samuel 18-31 (selections)", label: "David on the run" }],
+          comer: [{ title: "The Ruthless Elimination of Hurry", subtitle: "Trusting God’s timing", why: "David refused to take the throne by force. This is a profound picture of patient trust.", action: "Identify one area where you are tempted to force an outcome. Practice surrender this week.", link: "https://practicingtheway.org" }],
+          scholars: [],
+          wordStudies: [],
+          prompts: []
+        },
+        {
+          id: 18,
+          title: "Psalms — The Prayer Book of the Bible",
+          theme: "Honest worship in every season",
+          dates: "Apr 30 – May 6",
+          readings: [{ ref: "Psalms 1, 23, 51, 103, 139", label: "Selected Psalms" }],
+          comer: [{ title: "Practicing the Way — Prayer", subtitle: "Praying the Psalms", why: "The Psalms give us language for every human emotion in the presence of God.", action: "Pray one Psalm out loud every day this week.", link: "https://practicingtheway.org" }],
+          scholars: [],
+          wordStudies: [],
+          prompts: [],
+          groupDiscussionQuestions: [
+            "The Psalms give us permission to bring our full emotional range (lament, praise, doubt, anger) before God. Which Psalm most matches where you are right now, and why?",
+            "Many Psalms were written from places of real suffering or injustice. How does the raw honesty of Scripture actually increase its credibility rather than decrease it? (This is a theme Wes Huff frequently highlights when discussing the Bible’s reliability.)"
+          ],
+          takeHomeReflections: [
+            "Choose one Psalm this week and pray it out loud every morning and evening, even on days you don’t feel like it.",
+            "Write your own short lament or praise psalm this week based on your actual circumstances."
+          ]
+        }
+      ],
+
+      // Global recommended resources (library section)
+      resourcesLibrary: [
+        {
+          type: "Book",
+          title: "Practicing the Way",
+          author: "John Mark Comer",
+          desc: "The clearest modern articulation of discipleship as apprenticeship to Jesus. Essential for any serious group.",
+          link: "https://www.amazon.com/Practicing-Way-Apprentice-Jesus-Life/dp/0593193822"
+        },
+        {
+          type: "Book",
+          title: "The Ruthless Elimination of Hurry",
+          author: "John Mark Comer",
+          desc: "The spiritual formation classic of our time. Read it slowly, preferably with others.",
+          link: "https://www.amazon.com/Ruthless-Elimination-Hurry-Emotionally-Healthy/dp/0525653090"
+        },
+        {
+          type: "Book",
+          title: "The Divine Conspiracy",
+          author: "Dallas Willard",
+          desc: "The most important book on the kingdom of God and apprenticeship to Jesus in the last century.",
+          link: "https://www.amazon.com/Divine-Conspiracy-Rediscovering-Hidden-Life/dp/0060693339"
+        },
+        {
+          type: "Book",
+          title: "Celebration of Discipline",
+          author: "Richard J. Foster",
+          desc: "The classic on the spiritual disciplines. Still unmatched in clarity and depth.",
+          link: "https://www.amazon.com/Celebration-Discipline-Path-Spiritual-Growth/dp/0062803883"
+        },
+        {
+          type: "Book",
+          title: "Reading While Black",
+          author: "Esau McCaulley",
+          desc: "A Black ecclesial interpretation of Scripture that every serious student of the Bible should read.",
+          link: "https://www.amazon.com/Reading-While-Black-African-American/dp/083085486X"
+        },
+        {
+          type: "Course",
+          title: "Practicing the Way — Rule of Life Course",
+          author: "John Mark Comer / Practicing the Way",
+          desc: "An 8-session guided experience for building a personal and communal rule of life.",
+          link: "https://practicingtheway.org"
+        }
+      ]
+    }
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // STATE & HELPERS
+    // ──────────────────────────────────────────────────────────────────────────
+    let currentWeekId = STUDY_CONFIG.currentWeek
+    let bibleCache = {} // ref -> {esv: text, niv: text}
+
+    function getCurrentWeek() {
+      return STUDY_CONFIG.weeks.find(w => w.id === currentWeekId) || STUDY_CONFIG.weeks[0]
+    }
+
+    function saveState() {
+      localStorage.setItem('sacred-rhythm-state', JSON.stringify({
+        currentWeekId,
+        completed: getCompletedState(),
+        notes: document.getElementById('group-notes')?.value || ''
+      }))
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem('sacred-rhythm-state')
+        if (!raw) return null
+        return JSON.parse(raw)
+      } catch (e) { return null }
+    }
+
+    function getCompletedState() {
+      const raw = localStorage.getItem('sacred-rhythm-completed')
+      if (!raw) return {}
+      try { return JSON.parse(raw) } catch { return {} }
+    }
+
+    function setCompleted(weekId, key, value) {
+      const state = getCompletedState()
+      if (!state[weekId]) state[weekId] = {}
+      state[weekId][key] = value
+      localStorage.setItem('sacred-rhythm-completed', JSON.stringify(state))
+      updateOverallProgress()
+    }
+
+    function isCompleted(weekId, key) {
+      const state = getCompletedState()
+      return !!(state[weekId] && state[weekId][key])
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // ANNUAL RHYTHM DATE ENGINE — Friday–Saturday Sabbath weeks
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    function getYearStartDate() {
+      // Returns a Date object for the Friday that begins Week 1
+      const startStr = STUDY_CONFIG.yearStart || "2026-01-02"
+      return new Date(startStr + "T00:00:00")
+    }
+
+    function getWeekDateRange(weekId) {
+      const start = getYearStartDate()
+      // Week 1 starts on the configured Friday
+      const friday = new Date(start)
+      friday.setDate(start.getDate() + (weekId - 1) * 7)
+
+      const saturday = new Date(friday)
+      saturday.setDate(friday.getDate() + 1)
+
+      const fmt = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+
+      return {
+        friday,
+        saturday,
+        formatted: `${fmt(friday)} – ${fmt(saturday)}`,
+        short: `${friday.getMonth()+1}/${friday.getDate()}–${saturday.getDate()}`
+      }
+    }
+
+    function calculateCurrentWeekId(today = new Date()) {
+      const start = getYearStartDate()
+      // Normalize to midnight
+      const startDay = new Date(start.getFullYear(), start.getMonth(), start.getDate())
+      const todayDay = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+
+      const diffTime = todayDay - startDay
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
+
+      if (diffDays < 0) return 1
+
+      const week = Math.floor(diffDays / 7) + 1
+      return Math.min(Math.max(week, 1), 52)
+    }
+
+    function getOrCreateWeekData(weekId) {
+      // Return existing rich week data, or generate a clean placeholder
+      const existing = STUDY_CONFIG.weeks.find(w => w.id === weekId)
+      if (existing) return existing
+
+      // Simple Bible-in-a-Year style progression for placeholders (groups should replace these)
+      const placeholderTitles = [
+        "", "Patriarchs", "Exodus & Law", "Wilderness", "Conquest", "Judges",
+        "Kingdom Rise", "Kingdom Divided", "Prophets", "Exile", "Return",
+        "Wisdom", "Gospels", "Acts & Letters", "Revelation"
+      ]
+      const bucket = Math.min(Math.floor((weekId - 1) / 4), placeholderTitles.length - 1)
+      const title = placeholderTitles[bucket] || "Scripture & Formation"
+
+      return {
+        id: weekId,
+        title: title,
+        theme: "To be curated by your group",
+        dates: getWeekDateRange(weekId).formatted,
+        readings: [{ ref: "—", label: "TBD" }],
+        comer: [],
+        scholars: [],
+        wordStudies: [],
+        prompts: [],
+        groupDiscussionQuestions: [],
+        takeHomeReflections: [],
+        originalLanguageExamples: [],
+        supplementals: []
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // RENDERING
+    // ═══════════════════════════════════════════════════════════════════════════
+    function renderHeader() {
+      document.getElementById('group-name-display').textContent = STUDY_CONFIG.groupName
+      document.getElementById('plan-name-display').textContent = STUDY_CONFIG.planName
+    }
+
+    function renderWeekSwitcher() {
+      const container = document.getElementById('week-switcher')
+      container.innerHTML = ''
+
+      STUDY_CONFIG.weeks.forEach(week => {
+        const pill = document.createElement('div')
+        pill.className = `week-pill ${week.id === currentWeekId ? 'active' : ''}`
+        pill.innerHTML = `
+          <span class="week-num">W${week.id}</span>
+          <span style="font-size:0.75rem; opacity:0.85;">${week.title.split(' ').slice(0,2).join(' ')}</span>
+        `
+        pill.onclick = () => {
+          currentWeekId = week.id
+          renderAll()
+          saveState()
+        }
+        container.appendChild(pill)
+      })
+    }
+
+    function renderCurrentWeekHeader() {
+      const week = getCurrentWeek()
+      // Prefer the calculated Friday–Saturday range for consistency with the Annual Rhythm view
+      const range = getWeekDateRange(currentWeekId)
+      document.getElementById('week-dates').textContent = range.formatted + " (Fri–Sat)"
+      document.getElementById('week-title').textContent = week.title
+      document.getElementById('week-theme').textContent = week.theme
+    }
+
+    function renderTrackToggles() {
+      const container = document.getElementById('track-toggles')
+      container.innerHTML = `
+        <label style="display:flex; align-items:center; gap:6px; font-size:0.8rem; cursor:pointer;">
+          <input type="checkbox" checked disabled style="accent-color:var(--olive-600)"> 
+          <span><strong>Core Reading</strong> (ESV)</span>
+        </label>
+        <label style="display:flex; align-items:center; gap:6px; font-size:0.8rem; cursor:pointer;">
+          <input type="checkbox" checked id="toggle-comer" onchange="renderFormationCards()">
+          <span><strong>Comer Formation</strong></span>
+        </label>
+        <label style="display:flex; align-items:center; gap:6px; font-size:0.8rem; cursor:pointer;">
+          <input type="checkbox" checked id="toggle-scholars" onchange="renderFormationCards()">
+          <span><strong>Scholar Companions</strong></span>
+        </label>
+        <label style="display:flex; align-items:center; gap:6px; font-size:0.8rem; cursor:pointer;">
+          <input type="checkbox" checked id="toggle-languages" onchange="renderWordStudies()">
+          <span><strong>Languages Track</strong></span>
+        </label>
+      `
+    }
+
+    // Book number map for Bolls.life API (standard Protestant order)
+    const BOOK_NUMBERS = {
+      'genesis': 1, 'exodus': 2, 'leviticus': 3, 'numbers': 4, 'deuteronomy': 5,
+      'joshua': 6, 'judges': 7, 'ruth': 8, '1 samuel': 9, '2 samuel': 10,
+      '1 kings': 11, '2 kings': 12, '1 chronicles': 13, '2 chronicles': 14,
+      'ezra': 15, 'nehemiah': 16, 'esther': 17, 'job': 18, 'psalm': 19, 'proverbs': 20,
+      'ecclesiastes': 21, 'song of solomon': 22, 'isaiah': 23, 'jeremiah': 24,
+      'lamentations': 25, 'ezekiel': 26, 'daniel': 27, 'hosea': 28, 'joel': 29,
+      'amos': 30, 'obadiah': 31, 'jonah': 32, 'micah': 33, 'nahum': 34,
+      'habakkuk': 35, 'zephaniah': 36, 'haggai': 37, 'zechariah': 38, 'malachi': 39,
+      'matthew': 40, 'mark': 41, 'luke': 42, 'john': 43, 'acts': 44,
+      'romans': 45, '1 corinthians': 46, '2 corinthians': 47, 'galatians': 48,
+      'ephesians': 49, 'philippians': 50, 'colossians': 51, '1 thessalonians': 52,
+      '2 thessalonians': 53, '1 timothy': 54, '2 timothy': 55, 'titus': 56,
+      'philemon': 57, 'hebrews': 58, 'james': 59, '1 peter': 60, '2 peter': 61,
+      '1 john': 62, '2 john': 63, '3 john': 64, 'jude': 65, 'revelation': 66
+    }
+
+    function parseRef(ref) {
+      // Accepts "Genesis 12", "Genesis 21:8-21", "1 John 3", etc.
+      const m = ref.match(/^(.+?)\s+(\d+)(?::(\d+)(?:-(\d+))?)?$/i)
+      if (!m) return { book: ref, chapter: 1, startVerse: null, endVerse: null }
+      const book = m[1].trim().toLowerCase()
+      const chapter = parseInt(m[2], 10)
+      const startVerse = m[3] ? parseInt(m[3], 10) : null
+      const endVerse = m[4] ? parseInt(m[4], 10) : null
+      return { book, chapter, startVerse, endVerse }
+    }
+
+    async function fetchBibleText(ref, translation = 'ESV') {
+      const cacheKey = `${ref}-${translation}`
+      if (bibleCache[cacheKey]) return bibleCache[cacheKey]
+
+      try {
+        const { book, chapter, startVerse, endVerse } = parseRef(ref)
+        const bookNum = BOOK_NUMBERS[book]
+        if (!bookNum) throw new Error('Unknown book')
+
+        const url = `https://bolls.life/get-text/${translation.toUpperCase()}/${bookNum}/${chapter}/`
+        const res = await fetch(url)
+        if (!res.ok) throw new Error('Bolls API error')
+
+        const verses = await res.json() // array of {text, verse, chapter...}
+        let text = verses.map(v => v.text).join(' ')
+
+        // If specific verses requested, do a best-effort trim (simple for prototype)
+        if (startVerse) {
+          const filtered = verses.filter(v => {
+            if (endVerse) return v.verse >= startVerse && v.verse <= endVerse
+            return v.verse >= startVerse
+          })
+          if (filtered.length) text = filtered.map(v => v.text).join(' ')
+        }
+
+        bibleCache[cacheKey] = text.trim()
+        return bibleCache[cacheKey]
+      } catch (e) {
+        // Graceful fallback
+        return `[Unable to load ${translation.toUpperCase()} for ${ref}. Use your printed Bible or Bible Gateway. The structure, word studies, and formation content are still fully usable.]`
+      }
+    }
+
+    async function renderReadings() {
+      const week = getCurrentWeek()
+      const container = document.getElementById('readings-container')
+      container.innerHTML = ''
+
+      for (const reading of week.readings) {
+        const card = document.createElement('div')
+        card.className = 'card'
+        card.style.padding = '1.1rem 1.35rem'
+
+        const esvText = await fetchBibleText(reading.ref, 'ESV')
+        const nivText = await fetchBibleText(reading.ref, 'NIV')
+
+        const completedKey = `reading-${reading.ref}`
+        const checked = isCompleted(week.id, completedKey) ? 'checked' : ''
+
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+            <div>
+              <div class="card-label">${reading.label || ''}</div>
+              <div class="serif" style="font-size:1.15rem; font-weight:600; color:var(--olive-800);">${reading.ref}</div>
+            </div>
+            <label style="display:flex; align-items:center; gap:5px; font-size:0.75rem; cursor:pointer; white-space:nowrap;">
+              <input type="checkbox" ${checked} onchange="setCompleted(${week.id}, '${completedKey}', this.checked); updateOverallProgress()">
+              <span class="muted">Done</span>
+            </label>
+          </div>
+
+          <div style="margin:0.85rem 0 0.4rem;">
+            <div style="font-size:0.68rem; font-weight:700; letter-spacing:0.08em; color:var(--text-light); margin-bottom:4px;">ESV</div>
+            <div class="scripture-block" style="padding:1.1rem 1.25rem; font-size:0.97rem; line-height:1.75;">
+              <div class="text">${esvText}</div>
+            </div>
+          </div>
+
+          <details style="margin-top:0.4rem;">
+            <summary style="cursor:pointer; font-size:0.78rem; color:var(--olive-600); font-weight:600;">Show NIV</summary>
+            <div style="margin-top:0.5rem;">
+              <div style="font-size:0.68rem; font-weight:700; letter-spacing:0.08em; color:var(--text-light); margin-bottom:4px;">NIV</div>
+              <div class="scripture-block" style="padding:1.1rem 1.25rem; font-size:0.97rem; line-height:1.75; background:#f4f3ed;">
+                <div class="text">${nivText}</div>
+              </div>
+            </div>
+          </details>
+
+          <div class="scripture-actions">
+            <a href="https://www.biblegateway.com/passage/?search=${encodeURIComponent(reading.ref)}&version=ESV" target="_blank" class="btn">Bible Gateway →</a>
+            <a href="https://bible.com/bible/59/${reading.ref.toLowerCase().replace(/\s+/g,'')}" target="_blank" class="btn">YouVersion →</a>
+          </div>
+
+          ${document.getElementById('show-original-languages')?.checked && week.originalLanguageExamples && week.originalLanguageExamples.length ? `
+            <div style="margin-top:0.75rem; padding:0.6rem 0.75rem; background:#25281f; border-radius:8px; font-size:0.82rem;">
+              <div style="font-weight:600; margin-bottom:0.3rem; color:var(--olive-400);">Original Language Insights</div>
+              ${week.originalLanguageExamples.map(ex => `
+                <div style="margin:0.25rem 0;">
+                  <strong>${ex.ref}</strong> — <span style="font-family:serif;">${ex.text}</span> (${ex.translit})<br>
+                  <span style="color:var(--text-light);">${ex.meaning}</span>
+                </div>
+              `).join('')}
+            </div>
+          ` : ''}
+        `
+        container.appendChild(card)
+      }
+    }
+
+    function renderFormationCards() {
+      const week = getCurrentWeek()
+      const container = document.getElementById('formation-cards')
+      container.innerHTML = ''
+
+      const showComer = document.getElementById('toggle-comer')?.checked !== false
+      const showScholars = document.getElementById('toggle-scholars')?.checked !== false
+
+      // Comer cards
+      if (showComer && week.comer && week.comer.length) {
+        week.comer.forEach((item, idx) => {
+          const key = `comer-${idx}`
+          const checked = isCompleted(week.id, key) ? 'checked' : ''
+
+          const el = document.createElement('div')
+          el.className = 'card resource-card'
+          el.innerHTML = `
+            <div class="resource-tag">JOHN MARK COMER</div>
+            <div class="card-title" style="margin-top:0.55rem;">${item.title}</div>
+            <div class="muted" style="font-size:0.85rem; font-weight:600;">${item.subtitle}</div>
+
+            <div class="divider"></div>
+
+            <div style="font-size:0.92rem;"><strong>Why this week:</strong> ${item.why}</div>
+            <div style="margin-top:0.65rem; font-size:0.92rem;"><strong>Try this:</strong> ${item.action}</div>
+
+            <div style="margin-top:0.9rem; display:flex; align-items:center; justify-content:space-between;">
+              <a href="${item.link}" target="_blank" class="btn" style="font-size:0.75rem; padding:0.35rem 0.8rem;">Go to source →</a>
+              <label style="font-size:0.75rem; display:flex; align-items:center; gap:5px; cursor:pointer;">
+                <input type="checkbox" ${checked} onchange="setCompleted(${week.id}, '${key}', this.checked); updateOverallProgress()">
+                <span class="muted">Practiced</span>
+              </label>
+            </div>
+          `
+          container.appendChild(el)
+        })
+      }
+
+      // Scholar cards
+      if (showScholars && week.scholars && week.scholars.length) {
+        week.scholars.forEach((item, idx) => {
+          const key = `scholar-${idx}`
+          const checked = isCompleted(week.id, key) ? 'checked' : ''
+
+          const el = document.createElement('div')
+          el.className = 'card resource-card'
+          el.innerHTML = `
+            <div class="resource-tag" style="background:#e8e4d8; color:#57534e;">SCHOLAR</div>
+            <div class="card-title" style="margin-top:0.55rem;">${item.author}</div>
+            <div class="muted" style="font-size:0.85rem; font-weight:600;">${item.title}</div>
+
+            <div class="divider"></div>
+
+            <div style="font-size:0.92rem;">${item.note}</div>
+
+            <div style="margin-top:0.85rem; display:flex; align-items:center; justify-content:space-between;">
+              ${item.link ? `<a href="${item.link}" target="_blank" class="btn" style="font-size:0.75rem; padding:0.35rem 0.8rem;">Find this book →</a>` : '<span></span>'}
+              <label style="font-size:0.75rem; display:flex; align-items:center; gap:5px; cursor:pointer;">
+                <input type="checkbox" ${checked} onchange="setCompleted(${week.id}, '${key}', this.checked); updateOverallProgress()">
+                <span class="muted">Engaged</span>
+              </label>
+            </div>
+          `
+          container.appendChild(el)
+        })
+      }
+
+      if (!container.children.length) {
+        container.innerHTML = `<div class="muted" style="padding:1rem;">No formation companions selected for this week. Enable tracks above.</div>`
+      }
+    }
+
+    function renderWordStudies() {
+      const week = getCurrentWeek()
+      const container = document.getElementById('word-studies-container')
+      container.innerHTML = ''
+
+      const show = document.getElementById('toggle-languages')?.checked !== false
+      if (!show || !week.wordStudies || !week.wordStudies.length) {
+        container.innerHTML = `<div class="muted" style="padding:0.6rem 0.4rem;">Languages track disabled or no studies curated for this week.</div>`
+        return
+      }
+
+      week.wordStudies.forEach(study => {
+        const el = document.createElement('div')
+        el.className = 'word-study'
+        el.innerHTML = `
+          <div style="font-size:0.72rem; color:var(--olive-600); font-weight:700; letter-spacing:0.06em;">${study.ref}</div>
+          <div class="word-hebrew">${study.term}</div>
+          <div class="word-translit">${study.translit} — <span style="color:var(--text-light);">${study.english}</span></div>
+          <div class="word-definition"><strong>Meaning:</strong> ${study.meaning}</div>
+          <div class="word-definition" style="margin-top:0.4rem;"><strong>Why it matters:</strong> ${study.significance}</div>
+        `
+        container.appendChild(el)
+      })
+    }
+
+    // (Old renderPlanGrid removed — replaced by the full Annual Rhythm table view above)
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // NEW: Annual Rhythm Spreadsheet View (Friday–Saturday Sabbath model)
+    // ──────────────────────────────────────────────────────────────────────────
+    function renderRhythmPositionBanner() {
+      const banner = document.getElementById('rhythm-position-banner')
+      if (!banner) return
+
+      const today = new Date()
+      const detectedWeek = calculateCurrentWeekId(today)
+      const range = getWeekDateRange(detectedWeek)
+
+      const options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }
+      const todayStr = today.toLocaleDateString('en-US', options)
+
+      banner.innerHTML = `
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+          <div>
+            <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--olive-400);">Today</div>
+            <div style="font-size:1.05rem; font-weight:600;">${todayStr}</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--olive-400);">You are in</div>
+            <div style="font-size:1.35rem; font-family:'Instrument Serif', serif; font-weight:700;">
+              Week ${detectedWeek}
+              <span style="font-size:0.85rem; color:var(--olive-300);">(${range.formatted})</span>
+            </div>
+          </div>
+          <div>
+            <button onclick="jumpToDetectedWeek()" class="btn btn-primary" style="font-size:0.82rem; padding:0.5rem 1rem;">
+              Jump to Current Week
+            </button>
+          </div>
+        </div>
+      `
+    }
+
+    function renderAnnualRhythm() {
+      const container = document.getElementById('annual-rhythm-table')
+      if (!container) return
+
+      const detected = calculateCurrentWeekId()
+
+      let html = `
+        <table class="rhythm-table">
+          <thead>
+            <tr>
+              <th style="width:52px;">Week</th>
+              <th style="width:110px;">Fri – Sat</th>
+              <th>Title &amp; Theme</th>
+              <th>Core Reading</th>
+              <th style="width:110px;">Formation Focus</th>
+              <th style="width:92px;">Progress</th>
+              <th style="width:68px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+      `
+
+      for (let w = 1; w <= 52; w++) {
+        const weekData = getOrCreateWeekData(w)
+        const range = getWeekDateRange(w)
+        const isCurrent = w === currentWeekId
+        const isDetected = w === detected
+
+        const completedCount = Object.keys(getCompletedState()[w] || {}).length
+        const totalPossible = Math.max(3, (weekData.readings?.length || 0) + (weekData.comer?.length || 0) + (weekData.scholars?.length || 0))
+        const pct = Math.round((completedCount / totalPossible) * 100)
+
+        const focus = (weekData.comer && weekData.comer[0]) 
+          ? weekData.comer[0].subtitle || weekData.comer[0].title 
+          : (weekData.scholars && weekData.scholars[0] ? weekData.scholars[0].author : "Formation")
+
+        const rowClass = isCurrent ? 'current-week' : ''
+
+        html += `
+          <tr class="${rowClass}">
+            <td class="rhythm-weeknum">W${w}</td>
+            <td class="rhythm-dates">${range.formatted}</td>
+            <td>
+              <div class="rhythm-title">${weekData.title}</div>
+              <div class="rhythm-theme">${weekData.theme}</div>
+            </td>
+            <td class="rhythm-reading">
+              ${(weekData.readings || []).map(r => r.ref).filter(Boolean).slice(0,2).join(', ') || '—'}
+            </td>
+            <td>
+              <span class="rhythm-focus">${focus}</span>
+            </td>
+            <td class="rhythm-progress">
+              <div style="display:flex; align-items:center; gap:6px;">
+                <div class="mini-bar" style="flex:1;">
+                  <div class="mini-bar-fill" style="width:${pct}%"></div>
+                </div>
+                <span style="font-size:0.72rem; color:var(--text-light); min-width:28px; text-align:right;">${pct}%</span>
+              </div>
+            </td>
+            <td>
+              <button class="rhythm-jump" onclick="jumpToWeek(${w})">
+                ${isCurrent ? 'Current' : 'Go'}
+              </button>
+            </td>
+          </tr>
+        `
+      }
+
+      html += `</tbody></table>`
+      container.innerHTML = html
+    }
+
+    function jumpToWeek(weekId) {
+      currentWeekId = weekId
+      renderAll()
+      saveState()
+      // Scroll to the deep weekly view
+      setTimeout(() => {
+        document.getElementById('current-week').scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }, 50)
+    }
+
+    function jumpToDetectedWeek() {
+      const detected = calculateCurrentWeekId()
+      jumpToWeek(detected)
+    }
+
+    function renderResourcesLibrary() {
+      const container = document.getElementById('resources-library')
+      container.innerHTML = ''
+
+      STUDY_CONFIG.resourcesLibrary.forEach(res => {
+        const el = document.createElement('div')
+        el.className = 'card resource-card'
+        el.innerHTML = `
+          <div class="resource-tag">${res.type.toUpperCase()}</div>
+          <div class="card-title" style="margin-top:0.5rem;">${res.title}</div>
+          <div class="muted" style="font-size:0.82rem;">${res.author}</div>
+          <div style="margin-top:0.55rem; font-size:0.9rem; line-height:1.55;">${res.desc}</div>
+          <a href="${res.link}" target="_blank" class="btn" style="margin-top:0.9rem; font-size:0.76rem;">Find this resource →</a>
+        `
+        container.appendChild(el)
+      })
+    }
+
+    function renderReflectionPrompts() {
+      const week = getCurrentWeek()
+      const container = document.getElementById('reflection-prompts')
+      container.innerHTML = ''
+
+      if (!week.prompts || !week.prompts.length) {
+        container.innerHTML = '<div class="muted">No prompts curated for this week.</div>'
+        return
+      }
+
+      week.prompts.forEach((prompt, i) => {
+        const div = document.createElement('div')
+        div.style.cssText = 'padding:0.45rem 0; border-bottom:1px solid var(--border); font-size:0.93rem;'
+        div.innerHTML = `<span style="color:var(--olive-600); font-weight:700; margin-right:6px;">${i+1}.</span> ${prompt}`
+        container.appendChild(div)
+      })
+    }
+
+    function renderParticipation() {
+      const week = getCurrentWeek()
+      const container = document.getElementById('participation-tracks')
+      container.innerHTML = ''
+
+      const items = [
+        ...week.readings.map(r => ({ key: `reading-${r.ref}`, label: `Read ${r.ref}` })),
+        ... (week.comer || []).map((c,i) => ({ key: `comer-${i}`, label: c.subtitle || c.title })),
+        ... (week.scholars || []).map((s,i) => ({ key: `scholar-${i}`, label: `${s.author} — ${s.title}` }))
+      ]
+
+      items.forEach(item => {
+        const checked = isCompleted(week.id, item.key) ? 'checked' : ''
+        const row = document.createElement('div')
+        row.className = 'track-item'
+        row.innerHTML = `
+          <input type="checkbox" id="part-${item.key}" ${checked} 
+                 onchange="setCompleted(${week.id}, '${item.key}', this.checked); updateOverallProgress()">
+          <label for="part-${item.key}" class="track-label">${item.label}</label>
+        `
+        container.appendChild(row)
+      })
+    }
+
+    // New: Practice Check-in renderer (core of effective formation groups)
+    function renderPracticeCheckin() {
+      const week = getCurrentWeek()
+      const container = document.getElementById('practice-checkin-list')
+      if (!container) return
+      container.innerHTML = ''
+
+      const practices = []
+
+      // Core Scripture rhythm (always present)
+      practices.push({
+        key: 'scripture-rhythm',
+        label: 'Scripture Reading (daily rhythm)',
+        hint: 'How consistently did you engage the text this week?'
+      })
+
+      // Sabbath (emphasized in many Comer weeks)
+      practices.push({
+        key: 'sabbath',
+        label: 'Sabbath (Friday–Saturday or your chosen window)',
+        hint: 'Did you stop? Rest? Delight? Worship?'
+      })
+
+      // Pull in the specific Comer practices for this week
+      if (week.comer && week.comer.length) {
+        week.comer.forEach((c, i) => {
+          practices.push({
+            key: `comer-practice-${i}`,
+            label: c.subtitle || c.title,
+            hint: c.action || 'How did this practice go?'
+          })
+        })
+      }
+
+      const savedState = getCompletedState()[week.id] || {}
+
+      practices.forEach(pr => {
+        const row = document.createElement('div')
+        row.style.cssText = 'margin-bottom:0.65rem; padding-bottom:0.55rem; border-bottom:1px solid var(--border);'
+        row.innerHTML = `
+          <div style="display:flex; gap:8px; align-items:flex-start;">
+            <input type="checkbox" id="pr-${pr.key}" ${savedState[pr.key] ? 'checked' : ''} 
+                   onchange="setCompleted(${week.id}, '${pr.key}', this.checked)">
+            <div style="flex:1; min-width:0;">
+              <label for="pr-${pr.key}" style="font-weight:600; cursor:pointer;">${pr.label}</label>
+              <div style="font-size:0.78rem; color:var(--text-light);">${pr.hint}</div>
+              <textarea data-practice-key="${pr.key}" class="practice-note" style="width:100%; margin-top:4px; font-size:0.82rem; padding:6px 8px; border:1px solid var(--border); border-radius:6px; min-height:42px;" 
+                        placeholder="What happened? Resistance? Grace?"></textarea>
+            </div>
+          </div>
+        `
+        container.appendChild(row)
+      })
+
+      // Load any previously saved practice notes for this week
+      loadPracticeNotes(week.id)
+    }
+
+    function renderGroupDiscussionQuestions() {
+      const week = getCurrentWeek()
+      const container = document.getElementById('group-discussion-questions')
+      if (!container) return
+      container.innerHTML = ''
+
+      const questions = week.groupDiscussionQuestions && week.groupDiscussionQuestions.length 
+        ? week.groupDiscussionQuestions 
+        : week.prompts || []
+
+      if (!questions.length) {
+        container.innerHTML = `<div style="font-size:0.85rem; color:var(--text-light);">No discussion questions curated for this week yet. Add some in the config.</div>`
+        return
+      }
+
+      questions.forEach((q, i) => {
+        const div = document.createElement('div')
+        div.style.cssText = 'padding:0.5rem 0; border-bottom:1px solid var(--border);'
+        div.innerHTML = `
+          <div style="display:flex; gap:8px;">
+            <span style="color:var(--olive-500); font-weight:700; flex-shrink:0;">${i+1}.</span>
+            <div style="font-size:0.9rem; line-height:1.5;">${q}</div>
+          </div>
+        `
+        container.appendChild(div)
+      })
+    }
+
+    function renderTakeHomeReflections() {
+      const week = getCurrentWeek()
+      const container = document.getElementById('take-home-reflections')
+      if (!container) return
+      container.innerHTML = ''
+
+      const reflections = week.takeHomeReflections && week.takeHomeReflections.length 
+        ? week.takeHomeReflections 
+        : []
+
+      if (!reflections.length) {
+        container.innerHTML = `<div style="font-size:0.85rem; color:var(--text-light);">No take-home reflections for this week. These are excellent for personal journaling.</div>`
+        return
+      }
+
+      reflections.forEach((r, i) => {
+        const div = document.createElement('div')
+        div.style.cssText = 'padding:0.45rem 0; border-bottom:1px solid var(--border);'
+        div.innerHTML = `
+          <div style="font-size:0.9rem; line-height:1.5;">• ${r}</div>
+        `
+        container.appendChild(div)
+      })
+    }
+
+    function renderSupplementalMaterials() {
+      const week = getCurrentWeek()
+      const container = document.getElementById('supplemental-materials')
+      if (!container) return
+      container.innerHTML = ''
+
+      let html = ''
+
+      // Week-specific supplementals
+      if (week.supplementals && week.supplementals.length) {
+        week.supplementals.forEach(s => {
+          html += `
+            <div class="card" style="margin-bottom:0.75rem;">
+              <div style="font-weight:600;">${s.title}</div>
+              <div style="font-size:0.78rem; color:var(--text-light);">${s.source}</div>
+              <div style="margin:0.5rem 0; font-size:0.9rem; line-height:1.5;">${s.excerpt}</div>
+              ${s.link ? `<a href="${s.link}" target="_blank" class="btn" style="font-size:0.75rem;">View source →</a>` : ''}
+            </div>
+          `
+        })
+      }
+
+      // Always show PTW Practices link + Sacraments guidance
+      html += `
+        <div class="card">
+          <div style="font-weight:600; margin-bottom:0.4rem;">Practicing the Way — The Practices</div>
+          <div style="font-size:0.85rem; line-height:1.6; margin-bottom:0.5rem;">
+            This week's reading connects to several of the nine core practices. Explore the full guides:
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:6px;">
+            <a href="https://www.practicingtheway.org/practices/sabbath" target="_blank" class="btn" style="font-size:0.72rem;">Sabbath</a>
+            <a href="https://www.practicingtheway.org/practices/prayer" target="_blank" class="btn" style="font-size:0.72rem;">Prayer</a>
+            <a href="https://www.practicingtheway.org/practices/fasting" target="_blank" class="btn" style="font-size:0.72rem;">Fasting</a>
+            <a href="https://www.practicingtheway.org/practices/solitude" target="_blank" class="btn" style="font-size:0.72rem;">Solitude</a>
+            <a href="https://www.practicingtheway.org/practices/generosity" target="_blank" class="btn" style="font-size:0.72rem;">Generosity</a>
+            <a href="https://www.practicingtheway.org/practices/scripture" target="_blank" class="btn" style="font-size:0.72rem;">Scripture</a>
+            <a href="https://www.practicingtheway.org/practices/community" target="_blank" class="btn" style="font-size:0.72rem;">Community</a>
+            <a href="https://www.practicingtheway.org/practices/service" target="_blank" class="btn" style="font-size:0.72rem;">Service</a>
+            <a href="https://www.practicingtheway.org/practices/witness" target="_blank" class="btn" style="font-size:0.72rem;">Witness</a>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:0.75rem;">
+          <div style="font-weight:600; margin-bottom:0.4rem;">Presbyterian Sacraments</div>
+          <div style="font-size:0.85rem; line-height:1.6;">
+            <strong>Baptism</strong>: Sign and seal of the covenant of grace (WCF 28). Connects to themes of deliverance and new identity (see Exodus weeks).<br><br>
+            <strong>Lord's Supper</strong>: Spiritual nourishment and communion with Christ (WCF 29). Deeply tied to Passover and covenant renewal.
+          </div>
+          <a href="https://www.practicingtheway.org/" target="_blank" class="btn" style="margin-top:0.5rem; font-size:0.75rem;">Explore full PTW Practices →</a>
+        </div>
+      `
+
+      container.innerHTML = html
+    }
+
+    function loadPracticeNotes(weekId) {
+      const state = loadState() || {}
+      const practiceNotes = state.practiceNotes || {}
+      const weekNotes = practiceNotes[weekId] || {}
+
+      document.querySelectorAll('.practice-note').forEach(ta => {
+        const key = ta.dataset.practiceKey
+        if (weekNotes[key]) ta.value = weekNotes[key]
+
+        // Auto-save on input
+        ta.addEventListener('input', () => {
+          clearTimeout(ta._saveTimer)
+          ta._saveTimer = setTimeout(() => savePracticeNotes(weekId), 900)
+        })
+        ta.addEventListener('blur', () => savePracticeNotes(weekId))
+      })
+    }
+
+    function savePracticeNotes(weekId) {
+      const state = loadState() || {}
+      if (!state.practiceNotes) state.practiceNotes = {}
+      if (!state.practiceNotes[weekId]) state.practiceNotes[weekId] = {}
+
+      document.querySelectorAll('.practice-note').forEach(ta => {
+        const key = ta.dataset.practiceKey
+        if (ta.value.trim()) {
+          state.practiceNotes[weekId][key] = ta.value.trim()
+        }
+      })
+
+      localStorage.setItem('sacred-rhythm-state', JSON.stringify(state))
+    }
+
+    function updateOverallProgress() {
+      const state = getCompletedState()
+      let completed = 0
+      let total = 0
+
+      STUDY_CONFIG.weeks.forEach(week => {
+        const weekState = state[week.id] || {}
+        const weekTotal = (week.readings?.length || 0) +
+                          (week.comer?.length || 0) +
+                          (week.scholars?.length || 0)
+        total += weekTotal
+
+        Object.keys(weekState).forEach(k => {
+          if (weekState[k] === true) completed++
+        })
+      })
+
+      const pct = total > 0 ? Math.round((completed / total) * 100) : 0
+
+      const bar = document.getElementById('overall-progress-bar')
+      const txt = document.getElementById('overall-progress-text')
+
+      if (bar) bar.style.width = `${pct}%`
+      if (txt) txt.textContent = `${pct}%`
+    }
+
+    function loadNotes() {
+      const state = loadState()
+      const ta = document.getElementById('group-notes')
+      if (state && state.notes && ta) {
+        ta.value = state.notes
+      }
+
+      // Auto-save on blur
+      ta.addEventListener('blur', saveNotes)
+      ta.addEventListener('input', () => {
+        clearTimeout(ta._saveTimer)
+        ta._saveTimer = setTimeout(saveNotes, 1200)
+      })
+
+      // Rule of Life notes
+      const ruleTa = document.getElementById('rule-of-life-notes')
+      if (state && state.ruleOfLife && ruleTa) {
+        ruleTa.value = state.ruleOfLife
+      }
+      if (ruleTa) {
+        ruleTa.addEventListener('blur', saveRuleOfLife)
+        ruleTa.addEventListener('input', () => {
+          clearTimeout(ruleTa._saveTimer)
+          ruleTa._saveTimer = setTimeout(saveRuleOfLife, 1200)
+        })
+      }
+    }
+
+    function saveRuleOfLife() {
+      const ruleTa = document.getElementById('rule-of-life-notes')
+      if (!ruleTa) return
+      const state = loadState() || {}
+      state.ruleOfLife = ruleTa.value
+      localStorage.setItem('sacred-rhythm-state', JSON.stringify(state))
+    }
+
+    function saveNotes() {
+      const ta = document.getElementById('group-notes')
+      const state = loadState() || {}
+      state.notes = ta.value
+      localStorage.setItem('sacred-rhythm-state', JSON.stringify(state))
+
+      const indicator = document.getElementById('notes-saved')
+      indicator.textContent = 'Saved ✓'
+      setTimeout(() => { indicator.textContent = '' }, 1600)
+    }
+
+    async function refreshAllBibleText() {
+      bibleCache = {}
+      await renderReadings()
+    }
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // TAB SYSTEM
+    // ──────────────────────────────────────────────────────────────────────────
+    function initTabs() {
+      const tabs = document.querySelectorAll('.main-tab')
+      const panes = document.querySelectorAll('.tab-pane')
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const target = tab.dataset.tab
+
+          // Deactivate all
+          tabs.forEach(t => t.classList.remove('active'))
+          panes.forEach(p => p.classList.remove('active'))
+
+          // Activate clicked
+          tab.classList.add('active')
+          const pane = document.getElementById('tab-' + target)
+          if (pane) pane.classList.add('active')
+
+          // Optional: scroll to top of content when switching
+          window.scrollTo({ top: 120, behavior: 'smooth' })
+        })
+      })
+    }
+
+    function renderAll() {
+      renderHeader()
+      renderWeekSwitcher()
+      renderCurrentWeekHeader()
+      renderTrackToggles()
+
+      // These are async because of Bible API
+      renderReadings().then(() => {
+        // After readings are in, make sure progress is accurate
+        updateOverallProgress()
+      })
+
+      // Re-render readings if original languages toggle state changes (already wired in HTML)
+
+      renderFormationCards()
+      renderWordStudies()
+
+      // New Annual Rhythm spreadsheet view (replaces old plan grid)
+      renderRhythmPositionBanner()
+      renderAnnualRhythm()
+
+      renderResourcesLibrary()
+      renderReflectionPrompts()
+      renderParticipation()
+      renderPracticeCheckin()           // New strong practice check-in experience
+      renderGroupDiscussionQuestions()
+      renderTakeHomeReflections()
+      renderSupplementalMaterials()
+      updateOverallProgress()
+      loadNotes()
+    }
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // BOOTSTRAP
+    // ──────────────────────────────────────────────────────────────────────────
+    function init() {
+      // Restore last viewed week if user has state
+      const saved = loadState()
+      if (saved && saved.currentWeekId) {
+        const exists = STUDY_CONFIG.weeks.some(w => w.id === saved.currentWeekId)
+        if (exists) currentWeekId = saved.currentWeekId
+      }
+
+      initTabs()
+      renderAll()
+
+      // Keyboard hint
+      document.addEventListener('keydown', (e) => {
+        if (e.key === '/' && document.activeElement.tagName === 'BODY') {
+          e.preventDefault()
+          const ta = document.getElementById('group-notes')
+          if (ta) ta.focus()
+        }
+      })
+
+      // Welcome toast for first-time users (non-intrusive)
+      setTimeout(() => {
+        const hasVisited = localStorage.getItem('sacred-rhythm-visited')
+        if (!hasVisited) {
+          localStorage.setItem('sacred-rhythm-visited', '1')
+          // Could show a very gentle one-time banner here if desired
+        }
+      }, 2400)
+
+      console.log('%c[Sacred Rhythm] v0.2 ready. Friday–Saturday Annual Rhythm + strong Practice Check-in. Edit STUDY_CONFIG to customize.', 'color:#6e754b')
+    }
+
+    // Expose a couple helpers to the console for power users
+    window.SacredRhythm = {
+      jumpToWeek: (id) => { currentWeekId = id; renderAll(); saveState() },
+      jumpToCurrentWeek: () => { jumpToDetectedWeek() },
+      getCurrentWeekFromDate: calculateCurrentWeekId,
+      clearAllData: () => { localStorage.removeItem('sacred-rhythm-state'); localStorage.removeItem('sacred-rhythm-completed'); location.reload() }
+    }
+
+    init()
+  </script>
+</body>
+</html>
