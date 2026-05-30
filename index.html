@@ -51,13 +51,13 @@
       --stone-900: #1c1917;
 
       /* Semantic tokens — warmer dark olive aesthetic (closer to 0to1withJesus + original Emporia feel) */
-      --bg:         #1f2117;           /* Deep warm olive */
-      --surface:    #2a2d22;           /* Warmer dark surface */
-      --surface-2:  #35392c;
+      --bg:         #1f2117;           /* Main background - warm deep olive (matches reference) */
+      --surface:    #25281f;           /* Primary card/surface - warm dark olive */
+      --surface-2:  #2a2d22;           /* Secondary surface */
       --border:     #4a4f3c;
       --text:       #e8e6d9;
       --text-light: #a8a99a;
-      --accent:     #8a9269;           /* Original olive accent */
+      --accent:     #8a9269;
       --accent-fg:  #1f2117;
       --green:      #5a8a5e;
       --amber:      #b07d2a;
@@ -187,7 +187,7 @@
       display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
     }
     .week-pill {
-      background: #25281f;
+      background: var(--surface);
       border: 1px solid var(--border);
       padding: 0.35rem 0.85rem;
       border-radius: 999px;
@@ -196,7 +196,7 @@
       display: inline-flex; align-items: center; gap: 6px;
       color: var(--text);
     }
-    .week-pill:hover { background: #35392c; }
+    .week-pill:hover { background: var(--surface-2); }
     .week-pill.active {
       background: var(--olive-700); color: #fff; border-color: var(--olive-700);
     }
@@ -246,7 +246,7 @@
       cursor: pointer;
       transition: all .15s;
     }
-    .btn:hover { background: #35392c; }
+    .btn:hover { background: var(--surface-2); }
     .btn-primary {
       background: var(--olive-700); color: #fff; border-color: var(--olive-700);
     }
@@ -320,7 +320,7 @@
       padding: 1rem 1.1rem;
       border: 1px solid var(--border);
       border-radius: 12px;
-      background: #25281f;
+      background: var(--surface);
       color: var(--text);
       font-family: inherit;
       font-size: 0.95rem;
@@ -366,7 +366,7 @@
       font-size: 0.85rem;
     }
     .rhythm-table thead {
-      background: #35392c;
+      background: var(--surface-2);
       position: sticky;
       top: 0;
       z-index: 10;
@@ -389,7 +389,7 @@
       color: var(--text);
     }
     .rhythm-table tbody tr:hover {
-      background: #35392c;
+      background: var(--surface-2);
     }
     .rhythm-table tbody tr.current-week {
       background: rgba(138, 146, 105, 0.18);
@@ -471,7 +471,7 @@
     .main-tabs {
       display: flex;
       gap: 2px;
-      background: #25281f;
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 3px;
@@ -1840,7 +1840,7 @@
           </div>
 
           ${document.getElementById('show-original-languages')?.checked && week.originalLanguageExamples && week.originalLanguageExamples.length ? `
-            <div style="margin-top:0.75rem; padding:0.6rem 0.75rem; background:#25281f; border-radius:8px; font-size:0.82rem;">
+            <div style="margin-top:0.75rem; padding:0.6rem 0.75rem; background: var(--surface); border-radius:8px; font-size:0.82rem;">
               <div style="font-weight:600; margin-bottom:0.3rem; color:var(--olive-400);">Original Language Insights</div>
               ${week.originalLanguageExamples.map(ex => `
                 <div style="margin:0.25rem 0;">
