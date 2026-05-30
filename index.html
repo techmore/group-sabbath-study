@@ -1643,7 +1643,10 @@
     // ──────────────────────────────────────────────────────────────────────────
     // STATE & HELPERS
     // ──────────────────────────────────────────────────────────────────────────
-    let currentWeekId = STUDY_CONFIG.currentWeek
+    // Default to auto-detected week based on today's date relative to yearStart.
+    // You can still manually override via the week switcher or by setting STUDY_CONFIG.currentWeek.
+    // Will be set properly in init() based on auto-detection + smart saved state logic
+    let currentWeekId = 1
     let bibleCache = {} // ref -> {esv: text, niv: text}
 
     function getCurrentWeek() {
@@ -2726,11 +2729,25 @@
     // BOOTSTRAP
     // ──────────────────────────────────────────────────────────────────────────
     function init() {
-      // Restore last viewed week if user has state
       const saved = loadState()
+      const autoWeek = calculateCurrentWeekId()
+
+      // Smart restoration:
+      // - Use saved week only if it's reasonably close to today's calculated week (prevents very old saved values from sticking)
+      // - Otherwise default to auto-detection so the app stays current with the calendar
       if (saved && saved.currentWeekId) {
         const exists = STUDY_CONFIG.weeks.some(w => w.id === saved.currentWeekId)
-        if (exists) currentWeekId = saved.currentWeekId
+        const diff = Math.abs(saved.currentWeekId - autoWeek)
+
+        if (exists && diff < 6) {
+          // Saved week is recent enough — respect user's manual choice
+          currentWeekId = saved.currentWeekId
+        } else {
+          // Stale or invalid saved value → use auto-detected week
+          currentWeekId = autoWeek
+        }
+      } else {
+        currentWeekId = autoWeek
       }
 
       initTabs()
