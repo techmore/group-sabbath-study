@@ -662,6 +662,11 @@
       <div class="section-head">
         <div>
           <h2 class="serif">This Week's Reading</h2>
+          <div style="font-size:0.78rem; color:var(--text-light); margin-top:2px; line-height:1.2;">
+            Week <span id="reading-week-num">—</span>/52 
+            • <span id="reading-week-range"></span>
+            <span id="reading-today-hint" style="margin-left:6px; color:var(--accent);"></span>
+          </div>
           <span class="section-sub">ESV primary • NIV available</span>
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
@@ -1787,6 +1792,30 @@
       document.getElementById('week-dates').textContent = range.formatted + " (Fri–Sat)"
       document.getElementById('week-title').textContent = week.title
       document.getElementById('week-theme').textContent = week.theme
+
+      // New: Small reference info under "This Week's Reading"
+      const weekNumEl = document.getElementById('reading-week-num')
+      const rangeEl = document.getElementById('reading-week-range')
+      const todayHintEl = document.getElementById('reading-today-hint')
+
+      if (weekNumEl) weekNumEl.textContent = currentWeekId
+      if (rangeEl) rangeEl.textContent = range.formatted + " (Fri–Sat)"
+
+      // Calculate what day today is suspected to be within this week
+      if (todayHintEl) {
+        const today = new Date()
+        const weekStart = getWeekDateRange(currentWeekId).friday
+        const diffDays = Math.floor((today - weekStart) / (1000 * 60 * 60 * 24))
+
+        let dayLabel = ""
+        if (diffDays === 0) dayLabel = "Today is Friday (start of this week)"
+        else if (diffDays === 1) dayLabel = "Today is Saturday (Sabbath)"
+        else if (diffDays > 1 && diffDays < 7) dayLabel = `Today is day ${diffDays + 1} of this week`
+        else if (diffDays >= 7) dayLabel = "You may be in the next week"
+        else dayLabel = "Before this week starts"
+
+        todayHintEl.textContent = `• ${dayLabel}`
+      }
     }
 
     function renderTrackToggles() {
