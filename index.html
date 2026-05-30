@@ -99,6 +99,18 @@
       margin: 0 auto; 
       padding: 1rem 1.25rem 4rem; 
     }
+
+    /* Wide layout mode - expands content for desktop reading */
+    body.wide-mode .page,
+    body.wide-mode .main-tabs {
+      max-width: 100%;
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+
+    body.wide-mode .main-tabs {
+      max-width: calc(100% - 1rem);
+    }
     .section { margin-top: 2.5rem; }
     .section-head {
       margin-bottom: 1rem;
@@ -681,6 +693,10 @@
           <label style="display:flex; align-items:center; gap:4px; font-size:0.78rem; cursor:pointer;">
             <input type="checkbox" id="show-original-languages" onchange="toggleOriginalLanguages()">
             <span>Original Languages</span>
+          </label>
+          <label style="display:flex; align-items:center; gap:4px; font-size:0.78rem; cursor:pointer;">
+            <input type="checkbox" id="wide-layout" onchange="toggleWideLayout()">
+            <span>Wide layout</span>
           </label>
           <button onclick="refreshAllBibleText()" class="btn btn-ghost" style="font-size:0.72rem; padding:0.3rem 0.6rem;">↻</button>
         </div>
@@ -1638,6 +1654,7 @@
       const showESV = document.getElementById('show-esv')?.checked ?? true
       const showNIV = document.getElementById('show-niv')?.checked ?? false
       const showOriginal = document.getElementById('show-original-languages')?.checked ?? false
+      const wideMode = document.getElementById('wide-layout')?.checked ?? false
 
       localStorage.setItem('sacred-rhythm-state', JSON.stringify({
         currentWeekId,
@@ -1645,7 +1662,8 @@
         notes: document.getElementById('group-notes')?.value || '',
         showOriginalLanguages: showOriginal,
         showESV: showESV,
-        showNIV: showNIV
+        showNIV: showNIV,
+        wideMode: wideMode
       }))
     }
 
@@ -1661,17 +1679,21 @@
       const esvCb = document.getElementById('show-esv')
       const nivCb = document.getElementById('show-niv')
       const origCb = document.getElementById('show-original-languages')
+      const wideCb = document.getElementById('wide-layout')
       const container = document.getElementById('readings-container')
+      const body = document.body
 
       if (savedState) {
         if (esvCb && typeof savedState.showESV === 'boolean') esvCb.checked = savedState.showESV
         if (nivCb && typeof savedState.showNIV === 'boolean') nivCb.checked = savedState.showNIV
         if (origCb && typeof savedState.showOriginalLanguages === 'boolean') origCb.checked = savedState.showOriginalLanguages
+        if (wideCb && typeof savedState.wideMode === 'boolean') wideCb.checked = savedState.wideMode
       } else {
-        // Default: ESV on, NIV off, Originals off
+        // Defaults
         if (esvCb) esvCb.checked = true
         if (nivCb) nivCb.checked = false
         if (origCb) origCb.checked = false
+        if (wideCb) wideCb.checked = false
       }
 
       // Apply original languages class
@@ -1680,6 +1702,15 @@
           container.classList.add('show-originals')
         } else {
           container.classList.remove('show-originals')
+        }
+      }
+
+      // Apply wide layout class
+      if (body && wideCb) {
+        if (wideCb.checked) {
+          body.classList.add('wide-mode')
+        } else {
+          body.classList.remove('wide-mode')
         }
       }
     }
@@ -2611,6 +2642,20 @@
     function toggleTranslationVisibility() {
       saveState();
       renderReadings();
+    }
+
+    function toggleWideLayout() {
+      const checkbox = document.getElementById('wide-layout');
+      const body = document.body;
+
+      if (checkbox && body) {
+        if (checkbox.checked) {
+          body.classList.add('wide-mode');
+        } else {
+          body.classList.remove('wide-mode');
+        }
+      }
+      saveState();
     }
 
     // ──────────────────────────────────────────────────────────────────────────
