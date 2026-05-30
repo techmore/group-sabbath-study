@@ -2008,32 +2008,13 @@
         `);
       });
 
-      // 2. Fall back to / supplement with wordStudies (key terms) — this is the deep fix
-      const wordStudies = (week.wordStudies || []).filter(ws => {
-        if (!ws.ref) return true;
-        const book = ref.toLowerCase().split(' ')[0];
-        return ws.ref.toLowerCase().startsWith(book);
-      });
-
-      wordStudies.forEach(ws => {
-        originalItems.push(`
-          <div class="original-item">
-            <div class="original-label">Key Term — ${ws.ref}</div>
-            <div style="font-family: 'Instrument Serif', serif; font-size:1.15rem; line-height:1.25; color:var(--accent);">
-              ${ws.term} <span style="font-size:0.8rem; color:var(--text-light);">(${ws.translit})</span>
-            </div>
-            <div style="font-size:0.82rem; margin-top:0.2rem;">
-              <strong>${ws.english}</strong> — ${ws.meaning}
-            </div>
-            ${ws.significance ? `<div style="font-size:0.75rem; color:var(--muted); margin-top:0.15rem; font-style:italic;">${ws.significance}</div>` : ''}
-          </div>
-        `);
-      });
-
       const hasOriginal = originalItems.length > 0;
       const originalHTML = hasOriginal 
         ? originalItems.join('') 
-        : `<div style="font-size:0.78rem; color:var(--muted); font-style:italic;">No curated original language examples or key terms for this reading yet.</div>`;
+        : `<div style="font-size:0.78rem; color:var(--muted); font-style:italic;">
+             No curated original language text for this reading yet.<br>
+             <strong>This is the correct place</strong> for the full Hebrew / Greek / Aramaic text of the verses in this week's reading (side-by-side with English).
+           </div>`;
 
       let html = `<div class="scripture-pairs">`;
 
