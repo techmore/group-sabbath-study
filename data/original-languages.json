@@ -1,0 +1,36 @@
+{
+  "_comment": "Curated full original-language biblical text (Hebrew / Greek / Aramaic) for the week's readings. This file is the source of truth for the 'Show Original Languages' feature. Edit this instead of putting long strings inside index.html. The app loads it at runtime and merges it with any inline data in STUDY_CONFIG.",
+  "_format": "Keys are week IDs (as strings). Each value is an array of objects with ref, language, text (the actual script), translit, and meaning.",
+  "1": [
+    {
+      "ref": "Genesis 1:1",
+      "language": "Hebrew",
+      "text": "בְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ",
+      "translit": "Bereshit bara Elohim et hashamayim ve'et ha'aretz",
+      "meaning": "In the beginning God created the heavens and the earth."
+    },
+    {
+      "ref": "Genesis 1:31",
+      "language": "Hebrew",
+      "text": "וַיַּרְא אֱלֹהִים אֶת־כָּל־אֲשֶׁר עָשָׂה וְהִנֵּה־טוֹב מְאֹד",
+      "translit": "Vayar Elohim et-kol-asher asah vehineh-tov me'od",
+      "meaning": "God saw all that he had made, and it was very good."
+    }
+  ],
+  "22": [
+    {
+      "ref": "Genesis 1:1",
+      "language": "Hebrew",
+      "text": "בְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ",
+      "translit": "Bereshit bara Elohim et hashamayim ve'et ha'aretz",
+      "meaning": "In the beginning God created the heavens and the earth."
+    },
+    {
+      "ref": "Genesis 1:31",
+      "language": "Hebrew",
+      "text": "וַיַּרְא אֱלֹהִים אֶת־כָּל־אֲשֶׁר עָשָׂה וְהִנֵּה־טוֹב מְאֹד",
+      "translit": "Vayar Elohim et-kol-asher asah vehineh-tov me'od",
+      "meaning": "God saw all that he had made, and it was very good."
+    }
+  ]
+}

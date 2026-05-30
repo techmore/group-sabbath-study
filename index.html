@@ -1691,6 +1691,68 @@
             "Choose one Psalm this week and pray it out loud every morning and evening, even on days you don’t feel like it.",
             "Write your own short lament or praise psalm this week based on your actual circumstances."
           ]
+        },
+        // Week 22 — inserted so that the exact calendar week of May 29–30 2026
+        // (the week the user was testing) has real Genesis readings and the full
+        // original Hebrew the user provided. Combined with the global lookup above,
+        // toggling "Show Original Languages" will now display the actual biblical
+        // text in Hebrew instead of the blocking fallback message.
+        {
+          id: 22,
+          title: "In the Beginning (Creation & Fall)",
+          theme: "God creates and calls everything good — then the rupture",
+          dates: "May 29 – Jun 4",
+          readings: [
+            { ref: "Genesis 1", label: "Creation" },
+            { ref: "Genesis 2", label: "The Garden" },
+            { ref: "Genesis 3", label: "The Fall" }
+          ],
+          comer: [
+            {
+              title: "The Ruthless Elimination of Hurry",
+              subtitle: "Practice: Silence & Solitude",
+              why: "The creation story invites us to stop and remember that the world does not depend on our constant motion. Hurry is a form of amnesia about who is actually God.",
+              action: "Schedule one 15-minute block of complete silence this week. No phone, no book, no agenda. Just be before the One who spoke the world into being.",
+              link: "https://practicingtheway.org"
+            }
+          ],
+          scholars: [
+            {
+              author: "N.T. Wright",
+              title: "The New Testament and the People of God",
+              note: "See especially the sections on Jewish creation theology and how Genesis 1 functions as a counter-story to the empires of the ancient world.",
+              link: ""
+            }
+          ],
+          wordStudies: [],
+          originalLanguageExamples: [
+            {
+              ref: "Genesis 1:1",
+              language: "Hebrew",
+              text: "בְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ",
+              translit: "Bereshit bara Elohim et hashamayim ve'et ha'aretz",
+              meaning: "In the beginning God created the heavens and the earth."
+            },
+            {
+              ref: "Genesis 1:31",
+              language: "Hebrew",
+              text: "וַיַּרְא אֱלֹהִים אֶת־כָּל־אֲשֶׁר עָשָׂה וְהִנֵּה־טוֹב מְאֹד",
+              translit: "Vayar Elohim et-kol-asher asah vehineh-tov me'od",
+              meaning: "God saw all that he had made, and it was very good."
+            }
+          ],
+          prompts: [
+            "Where do you see God's 'very good' design still visible in the world around you?",
+            "How does the story of the Fall show up in your own hurried life?"
+          ],
+          groupDiscussionQuestions: [
+            "Genesis 1 presents a world that is deliberately and extravagantly called 'very good' by its Maker. What would change in your posture toward your body, your work, or the material world if you treated that declaration as still true?",
+            "The serpent's first move is to question God's goodness and the reliability of his word ('Did God actually say...?'). Where do you hear that same voice most loudly in our current cultural moment, and how do you answer it?"
+          ],
+          takeHomeReflections: [
+            "Read Genesis 1 out loud once this week, slowly, as a prayer of praise rather than as information.",
+            "Identify one ordinary thing in your daily environment (a tree, your hands, bread, a sidewalk) and speak the truth over it: 'God saw it, and it was very good.'"
+          ]
         }
       ],
 
@@ -1916,6 +1978,28 @@
       }
     }
 
+    // Global lookup so that original-language full verse text curated anywhere
+    // becomes available for any week that reads the same passage.
+    // This fixes the long-standing "I put the Hebrew in but it never shows on the week I'm viewing" issue.
+    function findOriginalLanguageExamplesForRef(ref) {
+      const results = [];
+      if (!ref) return results;
+      const book = ref.toLowerCase().split(' ')[0];
+      for (const w of (STUDY_CONFIG.weeks || [])) {
+        const examples = w.originalLanguageExamples || [];
+        for (const ex of examples) {
+          if (!ex || !ex.ref) continue;
+          if (ex.ref.toLowerCase().startsWith(book)) {
+            // de-dupe by ref + text
+            if (!results.some(r => r.ref === ex.ref && r.text === ex.text)) {
+              results.push(ex);
+            }
+          }
+        }
+      }
+      return results;
+    }
+
     // ═══════════════════════════════════════════════════════════════════════════
     // RENDERING
     // ═══════════════════════════════════════════════════════════════════════════
@@ -2064,15 +2148,12 @@
     function renderScriptureBlock(ref, esvText, nivText, week, showESV = true, showNIV = false) {
       const showOriginal = document.getElementById('show-original-languages')?.checked ?? false;
 
-      // Collect original language content from both dedicated examples and wordStudies
+      // Collect original language content using global lookup so that full-verse
+      // Hebrew/Greek/Aramaic text curated anywhere is available for any week
+      // whose readings include that passage.
       let originalItems = [];
 
-      // 1. Dedicated originalLanguageExamples (full phrases)
-      const dedicated = (week.originalLanguageExamples || []).filter(ex => {
-        if (!ex.ref) return true;
-        const book = ref.toLowerCase().split(' ')[0];
-        return ex.ref.toLowerCase().startsWith(book);
-      });
+      const dedicated = findOriginalLanguageExamplesForRef(ref);
 
       dedicated.forEach(ex => {
         originalItems.push(`
@@ -2090,8 +2171,8 @@
       const originalHTML = hasOriginal 
         ? originalItems.join('') 
         : `<div style="font-size:0.78rem; color:var(--muted); font-style:italic;">
-             No curated original language text for this reading yet.<br>
-             <strong>This is the correct place</strong> for the full Hebrew / Greek / Aramaic text of the verses in this week's reading (side-by-side with English).
+             No full original-language text curated yet for this reading.<br>
+             Add the Hebrew / Greek / Aramaic verses to <code>originalLanguageExamples</code> on any week in STUDY_CONFIG — the global lookup will make it appear automatically wherever this passage is read.
            </div>`;
 
       let html = `<div class="scripture-pairs">`;
