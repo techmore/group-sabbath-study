@@ -25,8 +25,8 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      /* Olive (warm, contemplative, earthy) — darker leaning for richer feel */
-      --olive-50:  #f7f8f4;
+      /* Exact tokens from 0to1withJesus for visual consistency */
+      --olive-50: #f7f8f4;
       --olive-100: #eef0e6;
       --olive-200: #dde1d0;
       --olive-300: #c4c9b0;
@@ -38,8 +38,7 @@
       --olive-900: #3b3e2d;
       --olive-950: #1f2117;
 
-      /* Stone (neutral grounding) */
-      --stone-50:  #fafaf9;
+      --stone-50: #fafaf9;
       --stone-100: #f5f5f4;
       --stone-200: #e7e5e4;
       --stone-300: #d6d3d1;
@@ -50,22 +49,27 @@
       --stone-800: #292524;
       --stone-900: #1c1917;
 
-      /* Semantic tokens — lighter warm dark olive (addressing "too dark" feedback vs reference site) */
-      --bg:         #25281f;           /* Main background */
-      --surface:    #2f3229;           /* Cards and elevated surfaces - noticeably lighter */
-      --surface-2:  #35392c;
-      --border:     #4a4f3c;
-      --text:       #e8e6d9;
-      --text-light: #a8a99a;
-      --accent:     #8a9269;
-      --accent-fg:  #1f2117;
-      --green:      #5a8a5e;
-      --amber:      #b07d2a;
-      --red:        #c0392b;
+      --bg: var(--olive-300);
+      --bg-elevated: rgba(238, 240, 230, 0.88);
+      --surface: rgba(221, 225, 208, 0.92);
+      --surface-strong: var(--olive-50);
+      --text: var(--stone-800);
+      --muted: var(--stone-500);
+      --line: rgba(110, 117, 75, 0.38);
+      --brand: var(--olive-700);
+      --brand-strong: var(--olive-900);
+      --brand-soft: rgba(110, 117, 75, 0.14);
+      --accent: var(--olive-600);
+      --accent-soft: rgba(110, 117, 75, 0.16);
+      --warm: #b07d2a;
+      --shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.1);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --max: 1080px;
 
-      /* Scripture specific — high readability */
-      --scripture-bg: #f4f2e8;
-      --scripture-border: #c9c5b3;
+      /* Scripture specific (kept for readability on light theme) */
+      --scripture-bg: #f8f7f2;
+      --scripture-border: var(--olive-200);
     }
 
     html { scroll-behavior: smooth; }
@@ -73,7 +77,7 @@
       font-family: 'Inter', system_ui, -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.7;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       font-size: 15px;
     }
@@ -91,34 +95,32 @@
 
     /* Layout */
     .page { 
-      max-width: 1080px; 
+      max-width: var(--max); 
       margin: 0 auto; 
-      padding: 0.75rem 1.5rem 5rem; 
+      padding: 1rem 1.25rem 4rem; 
     }
     .section { margin-top: 2.5rem; }
     .section-head {
-      display: flex; align-items: baseline; justify-content: space-between;
-      margin-bottom: 0.9rem;
+      margin-bottom: 1rem;
     }
     .section-head h2 { 
-      font-size: 1.55rem; 
+      font-size: clamp(1.7rem, 3vw, 2.65rem);
       color: var(--text); 
       font-weight: 600;
-      letter-spacing: -0.01em;
     }
     .section-head .section-sub { 
       font-size: 0.78rem; 
-      color: var(--text-light); 
-      font-weight: 500;
+      color: var(--muted); 
     }
 
-    /* Cards — cleaner and more structured like 0to1withJesus */
+    /* Cards — matched to 0to1withJesus */
     .card {
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.6rem 1.8rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.35rem;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
     }
     .card--dark {
       background: var(--olive-950);
@@ -138,10 +140,10 @@
 
     /* Top Navigation — exact spirit of reference */
     nav.topnav {
-      background: rgba(37, 40, 31, 0.88);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
+      background: rgba(31, 33, 23, 0.94);
+      border-bottom: 1px solid rgba(138, 146, 105, 0.38);
+      box-shadow: 0 8px 24px -16px rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(12px);
       position: sticky; top: 0; z-index: 100;
     }
     nav.topnav .inner {
@@ -470,12 +472,12 @@
        ═══════════════════════════════════════════════════════════════════════════ */
     .main-tabs {
       display: flex;
-      gap: 2px;
+      gap: 0.45rem;
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 3px;
-      margin: 0 auto 1.75rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px;
+      margin: 0 auto 1.5rem;
       max-width: 1080px;
       width: 100%;
       position: sticky;
@@ -484,26 +486,24 @@
     }
     .main-tab {
       flex: 1;
-      padding: 0.6rem 0.9rem;
+      padding: 0.55rem 1rem;
       border: none;
       background: transparent;
-      color: var(--text-light);
+      color: var(--muted);
       font-size: 0.82rem;
       font-weight: 600;
-      border-radius: 6px;
+      border-radius: 999px;
       cursor: pointer;
       transition: all 0.15s ease;
       text-align: center;
-      letter-spacing: 0.02em;
     }
     .main-tab:hover {
       color: var(--text);
-      background: rgba(255,255,255,0.05);
+      background: rgba(238, 240, 230, 0.12);
     }
     .main-tab.active {
-      background: var(--accent);
-      color: var(--accent-fg);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+      background: var(--olive-600);
+      color: var(--olive-50);
     }
 
     .tab-pane {
