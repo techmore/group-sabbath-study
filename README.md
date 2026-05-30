@@ -34,6 +34,33 @@ The aesthetic is deliberately warm, contemplative, and trustworthy — inspired 
 
 No build step. No accounts. No tracking.
 
+## Deploying to GitHub Pages (Recommended)
+
+This project is designed to work perfectly on GitHub Pages.
+
+### Quick Deploy Steps
+
+1. Push your code to GitHub (you already did this).
+2. Go to your repo → **Settings → Pages**
+3. Under "Source", select:
+   - **Deploy from a branch**
+   - Branch: `main`
+   - Folder: `/ (root)`
+4. Click **Save**
+
+GitHub will build and deploy your site. It usually takes 1–2 minutes.
+
+Your app will be live at:
+`https://techmore.github.io/group-sabbath-study/`
+
+### Tips for GitHub Pages
+
+- The `.nojekyll` file is included so GitHub doesn't try to process the site with Jekyll.
+- Everything is self-contained in `index.html`, so no build step is needed.
+- All Bible text, fonts, and resources are loaded from CDNs or the browser's localStorage.
+
+After deploying, you can share the GitHub Pages URL with your group instead of the raw `index.html` file.
+
 ## Recommended Resources (the ones we love)
 
 **Primary Formation**
