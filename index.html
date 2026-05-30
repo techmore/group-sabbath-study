@@ -545,14 +545,18 @@
       border-left: 2px solid var(--accent);
     }
 
-    /* When toggle is active, switch to side-by-side per pair */
-    #readings-container.show-originals .translation-pair {
-      grid-template-columns: 1fr 1fr;
-      align-items: start;
+    /* Stacked "Hebrew first" layout (Sefaria-style bilingual reading)
+       when Full Original Text is enabled. This is generally more natural
+       for scripture study than forcing side-by-side columns. */
+    #readings-container.show-originals .original-first-block {
+      background: #f8f6ed;
+      padding: 0.6rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid #d4d0b8;
     }
 
-    #readings-container.show-originals .translation-pair .original-side {
-      display: block;
+    #readings-container.show-originals .english-under-original {
+      margin-top: 0.4rem;
     }
 
     .original-label {
@@ -692,7 +696,7 @@
           </label>
           <label style="display:flex; align-items:center; gap:4px; font-size:0.78rem; cursor:pointer;">
             <input type="checkbox" id="show-original-languages" onchange="toggleOriginalLanguages()">
-            <span><strong>Full Original Text</strong> (Hebrew/Greek beside English)</span>
+            <span><strong>Full Original Text</strong> (Hebrew/Greek with English)</span>
           </label>
           <label style="display:flex; align-items:center; gap:4px; font-size:0.78rem; cursor:pointer;">
             <input type="checkbox" id="wide-layout" onchange="toggleWideLayout()">
@@ -2238,32 +2242,63 @@
 
       let html = `<div class="scripture-pairs">`;
 
-      if (showESV && esvText) {
+      if (showOriginal && hasOriginal) {
+        // Sefaria-inspired stacked layout: Full original Hebrew first (prominent),
+        // then English translation(s) underneath. Feels more natural for study
+        // than rigid side-by-side columns.
         html += `
-          <div class="translation-pair">
-            <div class="english-side">
-              <div style="font-size:0.65rem; font-weight:700; letter-spacing:0.05em; color:var(--text-light); margin-bottom:2px;">ESV</div>
+          <div class="original-first-block" style="margin-bottom:0.75rem;">
+            ${originalHTML}
+          </div>
+        `;
+
+        // English below the Hebrew
+        if (showESV && esvText) {
+          html += `
+            <div class="english-under-original" style="margin-bottom:0.5rem;">
+              <div style="font-size:0.65rem; font-weight:700; letter-spacing:0.05em; color:var(--text-light); margin-bottom:3px;">ESV</div>
               <div class="scripture-block">
                 <div class="text">${esvText}</div>
               </div>
             </div>
-            ${showOriginal ? `<div class="original-side">${originalHTML}</div>` : ''}
-          </div>
-        `;
-      }
-
-      if (showNIV && nivText) {
-        html += `
-          <div class="translation-pair">
-            <div class="english-side">
-              <div style="font-size:0.65rem; font-weight:700; letter-spacing:0.05em; color:var(--text-light); margin-bottom:2px;">NIV</div>
+          `;
+        }
+        if (showNIV && nivText) {
+          html += `
+            <div class="english-under-original">
+              <div style="font-size:0.65rem; font-weight:700; letter-spacing:0.05em; color:var(--text-light); margin-bottom:3px;">NIV</div>
               <div class="scripture-block" style="background:#f4f3ed;">
                 <div class="text">${nivText}</div>
               </div>
             </div>
-            ${showOriginal ? `<div class="original-side">${originalHTML}</div>` : ''}
-          </div>
-        `;
+          `;
+        }
+      } else {
+        // Classic layout (no original text shown)
+        if (showESV && esvText) {
+          html += `
+            <div class="translation-pair">
+              <div class="english-side">
+                <div style="font-size:0.65rem; font-weight:700; letter-spacing:0.05em; color:var(--text-light); margin-bottom:2px;">ESV</div>
+                <div class="scripture-block">
+                  <div class="text">${esvText}</div>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+        if (showNIV && nivText) {
+          html += `
+            <div class="translation-pair">
+              <div class="english-side">
+                <div style="font-size:0.65rem; font-weight:700; letter-spacing:0.05em; color:var(--text-light); margin-bottom:2px;">NIV</div>
+                <div class="scripture-block" style="background:#f4f3ed;">
+                  <div class="text">${nivText}</div>
+                </div>
+              </div>
+            </div>
+          `;
+        }
       }
 
       html += `</div>`;
