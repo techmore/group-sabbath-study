@@ -669,12 +669,20 @@
           </div>
           <span class="section-sub">ESV primary • NIV available</span>
         </div>
-        <div style="display:flex; align-items:center; gap:12px;">
-          <label style="display:flex; align-items:center; gap:6px; font-size:0.8rem; cursor:pointer;">
-            <input type="checkbox" id="show-original-languages" onchange="toggleOriginalLanguages()">
-            <span>Show Original Languages</span>
+        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+          <label style="display:flex; align-items:center; gap:4px; font-size:0.78rem; cursor:pointer;">
+            <input type="checkbox" id="show-esv" checked onchange="toggleTranslationVisibility()">
+            <span>ESV</span>
           </label>
-          <button onclick="refreshAllBibleText()" class="btn btn-ghost">↻ Refresh text</button>
+          <label style="display:flex; align-items:center; gap:4px; font-size:0.78rem; cursor:pointer;">
+            <input type="checkbox" id="show-niv" onchange="toggleTranslationVisibility()">
+            <span>NIV</span>
+          </label>
+          <label style="display:flex; align-items:center; gap:4px; font-size:0.78rem; cursor:pointer;">
+            <input type="checkbox" id="show-original-languages" onchange="toggleOriginalLanguages()">
+            <span>Original Languages</span>
+          </label>
+          <button onclick="refreshAllBibleText()" class="btn btn-ghost" style="font-size:0.72rem; padding:0.3rem 0.6rem;">↻</button>
         </div>
       </div>
 
@@ -1627,12 +1635,17 @@
     }
 
     function saveState() {
-      const toggle = document.getElementById('show-original-languages')
+      const showESV = document.getElementById('show-esv')?.checked ?? true
+      const showNIV = document.getElementById('show-niv')?.checked ?? false
+      const showOriginal = document.getElementById('show-original-languages')?.checked ?? false
+
       localStorage.setItem('sacred-rhythm-state', JSON.stringify({
         currentWeekId,
         completed: getCompletedState(),
         notes: document.getElementById('group-notes')?.value || '',
-        showOriginalLanguages: toggle ? toggle.checked : false
+        showOriginalLanguages: showOriginal,
+        showESV: showESV,
+        showNIV: showNIV
       }))
     }
 
@@ -1644,21 +1657,29 @@
       } catch (e) { return null }
     }
 
-    function applyOriginalLanguagesToggle(savedState) {
-      const checkbox = document.getElementById('show-original-languages')
+    function applyTranslationToggles(savedState) {
+      const esvCb = document.getElementById('show-esv')
+      const nivCb = document.getElementById('show-niv')
+      const origCb = document.getElementById('show-original-languages')
       const container = document.getElementById('readings-container')
-      if (!checkbox) return
 
-      if (savedState && typeof savedState.showOriginalLanguages === 'boolean') {
-        checkbox.checked = savedState.showOriginalLanguages
+      if (savedState) {
+        if (esvCb && typeof savedState.showESV === 'boolean') esvCb.checked = savedState.showESV
+        if (nivCb && typeof savedState.showNIV === 'boolean') nivCb.checked = savedState.showNIV
+        if (origCb && typeof savedState.showOriginalLanguages === 'boolean') origCb.checked = savedState.showOriginalLanguages
+      } else {
+        // Default: ESV on, NIV off, Originals off
+        if (esvCb) esvCb.checked = true
+        if (nivCb) nivCb.checked = false
+        if (origCb) origCb.checked = false
       }
 
-      // Apply class for simple reveal
-      if (container) {
-        if (checkbox.checked) {
-          container.classList.add('show-originals');
+      // Apply original languages class
+      if (container && origCb) {
+        if (origCb.checked) {
+          container.classList.add('show-originals')
         } else {
-          container.classList.remove('show-originals');
+          container.classList.remove('show-originals')
         }
       }
     }
@@ -1902,14 +1923,17 @@
       }
     }
 
-    function renderScriptureBlock(ref, esvText, nivText, week) {
+    function renderScriptureBlock(ref, esvText, nivText, week, showESV = true, showNIV = false) {
       const examples = (week.originalLanguageExamples || []).filter(ex => {
         if (!ex.ref) return true;
         const book = ref.toLowerCase().split(' ')[0];
         return ex.ref.toLowerCase().startsWith(book);
       });
 
-      const originalForESV = examples.length > 0 ? examples.map(ex => `
+      const hasOriginal = examples.length > 0;
+      const showOriginal = document.getElementById('show-original-languages')?.checked ?? false;
+
+      const originalHTML = hasOriginal ? examples.map(ex => `
         <div class="original-item">
           <div class="original-label">${ex.language || 'Original'} — ${ex.ref || ref}</div>
           <div style="font-family: 'Instrument Serif', serif; font-size:1.05rem; line-height:1.3;">
@@ -1917,14 +1941,12 @@
           </div>
           <div style="font-size:0.78rem; color:var(--muted); margin-top:0.15rem;">${ex.meaning}</div>
         </div>
-      `).join('') : `<div style="font-size:0.78rem; color:var(--muted); font-style:italic;">No curated original examples yet.</div>`;
+      `).join('') : `<div style="font-size:0.78rem; color:var(--muted); font-style:italic;">No curated original examples for this reading yet.</div>`;
 
-      // For simplicity, use the same original block for NIV too (or enhance later per-verse)
-      const originalForNIV = originalForESV;
+      let html = `<div class="scripture-pairs">`;
 
-      return `
-        <div class="scripture-pairs">
-          <!-- ESV Pair -->
+      if (showESV && esvText) {
+        html += `
           <div class="translation-pair">
             <div class="english-side">
               <div style="font-size:0.65rem; font-weight:700; letter-spacing:0.05em; color:var(--text-light); margin-bottom:2px;">ESV</div>
@@ -1932,12 +1954,13 @@
                 <div class="text">${esvText}</div>
               </div>
             </div>
-            <div class="original-side">
-              ${originalForESV}
-            </div>
+            ${showOriginal ? `<div class="original-side">${originalHTML}</div>` : ''}
           </div>
+        `;
+      }
 
-          <!-- NIV Pair -->
+      if (showNIV && nivText) {
+        html += `
           <div class="translation-pair">
             <div class="english-side">
               <div style="font-size:0.65rem; font-weight:700; letter-spacing:0.05em; color:var(--text-light); margin-bottom:2px;">NIV</div>
@@ -1945,12 +1968,13 @@
                 <div class="text">${nivText}</div>
               </div>
             </div>
-            <div class="original-side">
-              ${originalForNIV}
-            </div>
+            ${showOriginal ? `<div class="original-side">${originalHTML}</div>` : ''}
           </div>
-        </div>
-      `;
+        `;
+      }
+
+      html += `</div>`;
+      return html;
     }
 
     async function renderReadings() {
@@ -1958,13 +1982,16 @@
       const container = document.getElementById('readings-container')
       container.innerHTML = ''
 
+      const showESV = document.getElementById('show-esv')?.checked ?? true
+      const showNIV = document.getElementById('show-niv')?.checked ?? false
+
       for (const reading of week.readings) {
         const card = document.createElement('div')
         card.className = 'card'
         card.style.padding = '1.1rem 1.35rem'
 
-        const esvText = await fetchBibleText(reading.ref, 'ESV')
-        const nivText = await fetchBibleText(reading.ref, 'NIV')
+        const esvText = showESV ? await fetchBibleText(reading.ref, 'ESV') : null
+        const nivText = showNIV ? await fetchBibleText(reading.ref, 'NIV') : null
 
         const completedKey = `reading-${reading.ref}`
         const checked = isCompleted(week.id, completedKey) ? 'checked' : ''
@@ -1981,7 +2008,7 @@
             </label>
           </div>
 
-          ${renderScriptureBlock(reading.ref, esvText, nivText, week)}
+          ${renderScriptureBlock(reading.ref, esvText, nivText, week, showESV, showNIV)}
 
           <div class="scripture-actions">
             <a href="https://www.biblegateway.com/passage/?search=${encodeURIComponent(reading.ref)}&version=ESV" target="_blank" class="btn">Bible Gateway →</a>
@@ -1992,8 +2019,8 @@
       }
 
       // Ensure the reveal class is applied after rendering
-      const checkbox = document.getElementById('show-original-languages');
-      if (checkbox && checkbox.checked) {
+      const origCheckbox = document.getElementById('show-original-languages');
+      if (origCheckbox && origCheckbox.checked) {
         container.classList.add('show-originals');
       }
     }
@@ -2560,16 +2587,27 @@
 
     function toggleOriginalLanguages() {
       const container = document.getElementById('readings-container');
-      const checkbox = document.getElementById('show-original-languages');
-      
-      if (container && checkbox) {
-        if (checkbox.checked) {
+      const origCb = document.getElementById('show-original-languages');
+      const esvCb = document.getElementById('show-esv');
+
+      if (container && origCb) {
+        if (origCb.checked) {
           container.classList.add('show-originals');
+          // When enabling originals, default to showing ESV if nothing is selected
+          if (esvCb && !esvCb.checked && !document.getElementById('show-niv')?.checked) {
+            esvCb.checked = true;
+          }
         } else {
           container.classList.remove('show-originals');
         }
       }
       saveState();
+      renderReadings();
+    }
+
+    function toggleTranslationVisibility() {
+      saveState();
+      renderReadings();
     }
 
     // ──────────────────────────────────────────────────────────────────────────
@@ -2604,16 +2642,16 @@
       renderCurrentWeekHeader()
       renderTrackToggles()
 
-      // Restore original languages toggle preference
+      // Restore translation visibility preferences
       const saved = loadState()
-      applyOriginalLanguagesToggle(saved)
+      applyTranslationToggles(saved)
 
       // These are async because of Bible API
       renderReadings().then(() => {
         // After readings are in, make sure progress is accurate
         updateOverallProgress()
-        // Re-apply in case the checkbox was created late
-        applyOriginalLanguagesToggle(saved)
+        // Re-apply in case the checkboxes were created late
+        applyTranslationToggles(saved)
       })
 
       // Re-render readings if original languages toggle state changes (already wired in HTML)
