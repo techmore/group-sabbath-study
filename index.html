@@ -50,22 +50,22 @@
       --stone-800: #292524;
       --stone-900: #1c1917;
 
-      /* Semantic tokens — darker, richer aesthetic inspired by 0to1withJesus */
-      --bg:         #1f2117;           /* Deep olive-950 as main background */
-      --surface:    #2a2d22;           /* Slightly lighter dark surface */
-      --surface-2:  #35392c;
-      --border:     #4a4f3c;
-      --text:       #e8e6d9;
-      --text-light: #a8a99a;
-      --accent:     #8a9269;
-      --accent-fg:  #1f2117;
+      /* Semantic tokens — aiming for cleaner, calmer aesthetic like 0to1withJesus */
+      --bg:         #11110f;           /* Deep neutral dark */
+      --surface:    #1a1916;           /* Clean dark surface */
+      --surface-2:  #22211d;
+      --border:     #3a3833;
+      --text:       #e8e5d9;
+      --text-light: #a8a59a;
+      --accent:     #8a8469;           /* Warmer, less saturated olive */
+      --accent-fg:  #11110f;
       --green:      #5a8a5e;
       --amber:      #b07d2a;
       --red:        #c0392b;
 
-      /* Scripture specific — warmer on dark */
-      --scripture-bg: #25281f;
-      --scripture-border: #4a4f3c;
+      /* Scripture specific — high readability */
+      --scripture-bg: #f4f2e8;
+      --scripture-border: #c9c5b3;
     }
 
     html { scroll-behavior: smooth; }
@@ -90,21 +90,35 @@
     ::-webkit-scrollbar-thumb:hover { background: var(--olive-500); }
 
     /* Layout */
-    .page { max-width: 1080px; margin: 0 auto; padding: 0 1.25rem 4rem; }
-    .section { margin-top: 2.25rem; }
+    .page { 
+      max-width: 1080px; 
+      margin: 0 auto; 
+      padding: 0.75rem 1.5rem 5rem; 
+    }
+    .section { margin-top: 2.5rem; }
     .section-head {
       display: flex; align-items: baseline; justify-content: space-between;
-      border-bottom: 1px solid var(--border); padding-bottom: 0.55rem; margin-bottom: 1rem;
+      margin-bottom: 0.9rem;
     }
-    .section-head h2 { font-size: 1.45rem; color: var(--text); }
-    .section-head .section-sub { font-size: 0.78rem; color: var(--text-light); }
+    .section-head h2 { 
+      font-size: 1.55rem; 
+      color: var(--text); 
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .section-head .section-sub { 
+      font-size: 0.78rem; 
+      color: var(--text-light); 
+      font-weight: 500;
+    }
 
-    /* Cards */
+    /* Cards — cleaner and more structured like 0to1withJesus */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.35rem 1.5rem;
+      border-radius: 8px;
+      padding: 1.6rem 1.8rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     }
     .card--dark {
       background: var(--olive-950);
@@ -124,10 +138,10 @@
 
     /* Top Navigation — exact spirit of reference */
     nav.topnav {
-      background: rgba(31, 33, 23, 0.85);   /* Dark glass for new theme */
+      background: rgba(17, 17, 15, 0.92);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(74, 79, 60, 0.6);
+      border-bottom: 1px solid var(--border);
       position: sticky; top: 0; z-index: 100;
     }
     nav.topnav .inner {
@@ -138,31 +152,34 @@
     }
     nav.topnav .brand {
       font-family: 'Instrument Serif', serif;
-      font-size: 1.25rem; font-weight: 700;
-      color: #e8e6d9;
+      font-size: 1.2rem; font-weight: 600;
+      color: var(--text);
       text-decoration: none;
-      display: flex; align-items: center; gap: 0.55rem;
+      display: flex; align-items: center; gap: 0.5rem;
     }
     nav.topnav .brand-dot {
-      width: 26px; height: 26px; background: var(--olive-600);
-      border-radius: 7px; display: inline-flex; align-items: center; justify-content: center;
-      color: #1f2117; font-size: 13px; flex-shrink: 0;
+      width: 24px; height: 24px; background: var(--accent);
+      border-radius: 6px; display: inline-flex; align-items: center; justify-content: center;
+      color: var(--accent-fg); font-size: 12px; flex-shrink: 0;
     }
     nav.topnav .nav-links {
       display: flex; gap: 4px;
     }
     nav.topnav a.nav-link {
-      color: #a8a99a;
+      color: var(--text-light);
       text-decoration: none;
-      font-size: 0.875rem; font-weight: 500;
-      padding: 0.42rem 0.85rem;
-      border-radius: 7px;
+      font-size: 0.82rem; font-weight: 500;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
       transition: all 0.15s ease;
     }
-    nav.topnav a.nav-link:hover { background: rgba(138, 146, 105, 0.15); color: #e8e6d9; }
+    nav.topnav a.nav-link:hover { 
+      background: rgba(255,255,255,0.06); 
+      color: var(--text); 
+    }
     nav.topnav a.nav-link.active {
-      background: var(--olive-700);
-      color: #fff;
+      background: var(--accent);
+      color: var(--accent-fg);
     }
 
     /* Week Switcher */
@@ -318,15 +335,16 @@
 
     /* Footer */
     footer {
-      margin-top: 4rem;
-      padding-top: 1.5rem;
+      margin-top: 3.5rem;
+      padding-top: 1.25rem;
       border-top: 1px solid var(--border);
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       color: var(--text-light);
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 8px;
+      opacity: 0.85;
     }
 
     /* Small utilities */
@@ -348,7 +366,7 @@
       font-size: 0.85rem;
     }
     .rhythm-table thead {
-      background: #35392c;
+      background: var(--surface-2);
       position: sticky;
       top: 0;
       z-index: 10;
@@ -356,12 +374,12 @@
     .rhythm-table th {
       text-align: left;
       padding: 10px 12px;
-      font-size: 0.68rem;
-      font-weight: 700;
+      font-size: 0.65rem;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: #c4c9b0;
-      border-bottom: 2px solid #4a4f3c;
+      letter-spacing: 0.06em;
+      color: var(--text-light);
+      border-bottom: 1px solid var(--border);
       white-space: nowrap;
     }
     .rhythm-table td {
@@ -384,7 +402,7 @@
       font-family: 'Instrument Serif', serif;
       font-size: 0.95rem;
       font-weight: 700;
-      color: var(--olive-700);
+      color: var(--accent);
       width: 42px;
     }
     .rhythm-dates {
@@ -432,19 +450,19 @@
       transition: width .3s;
     }
     .rhythm-jump {
-      font-size: 0.78rem;
-      padding: 4px 10px;
-      border-radius: 6px;
-      background: var(--surface);
+      font-size: 0.75rem;
+      padding: 4px 9px;
+      border-radius: 5px;
+      background: transparent;
       border: 1px solid var(--border);
-      color: var(--olive-700);
+      color: var(--text-light);
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 500;
     }
     .rhythm-jump:hover {
-      background: var(--olive-600);
-      color: white;
-      border-color: var(--olive-600);
+      background: var(--accent);
+      color: var(--accent-fg);
+      border-color: var(--accent);
     }
 
     /* ═══════════════════════════════════════════════════════════════════════════
@@ -452,39 +470,40 @@
        ═══════════════════════════════════════════════════════════════════════════ */
     .main-tabs {
       display: flex;
-      gap: 4px;
-      background: #25281f;
-      border-radius: 10px;
-      padding: 4px;
-      margin: 0 auto 1.5rem;
+      gap: 2px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 3px;
+      margin: 0 auto 1.75rem;
       max-width: 1080px;
       width: 100%;
       position: sticky;
       top: 62px;
       z-index: 90;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
     .main-tab {
       flex: 1;
-      padding: 0.55rem 0.75rem;
+      padding: 0.6rem 0.9rem;
       border: none;
       background: transparent;
-      color: #a8a99a;
-      font-size: 0.85rem;
+      color: var(--text-light);
+      font-size: 0.82rem;
       font-weight: 600;
-      border-radius: 7px;
+      border-radius: 6px;
       cursor: pointer;
       transition: all 0.15s ease;
       text-align: center;
+      letter-spacing: 0.02em;
     }
     .main-tab:hover {
-      color: #e8e6d9;
-      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      background: rgba(255,255,255,0.05);
     }
     .main-tab.active {
-      background: var(--olive-700);
-      color: #fff;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      background: var(--accent);
+      color: var(--accent-fg);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.15);
     }
 
     .tab-pane {
