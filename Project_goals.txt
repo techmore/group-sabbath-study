@@ -1,0 +1,95 @@
+Project Goals
+=============
+
+Project: Sacred Rhythm / Group Bible Study Companion
+
+Purpose
+-------
+Build a beautiful, reusable, single-page Bible study companion that helps a group read Scripture together, stay in rhythm week to week, and go deeper through trusted formation resources and original-language study without turning the experience into a reading app or academic dashboard.
+
+Core Scope
+----------
+- Weekly group Bible study companion with a 52-week annual rhythm.
+- Friday-to-Saturday Sabbath-oriented weekly structure.
+- Automatic current-week detection and progress tracking.
+- Scripture reading support with ESV as the primary translation and NIV as a toggle option.
+- Curated weekly formation content, including:
+  - John Mark Comer / Practicing the Way style check-ins and prompts
+  - Scholar recommendations
+  - Reflection questions
+  - Weekly rhythm guidance
+- Original-language support for selected passages:
+  - Hebrew for OT content
+  - Greek for NT content
+  - Transliteration and plain-language meaning where helpful
+- Self-contained local-first experience:
+  - Open `index.html` directly in a browser
+  - No build step required
+  - Browser storage for notes, preferences, and progress
+
+What This Project Is Not
+------------------------
+- Not a generic Bible reading app.
+- Not a social platform.
+- Not a heavy backend-driven system.
+- Not designed to replace books, teachers, or community discussion.
+- Not optimized for academic original-language analysis beyond devotional clarity and group use.
+
+Current Implementation Status
+-----------------------------
+- A single-page HTML app exists in `index.html` with the main UI, styling, and study experience.
+- The design system is already established with a warm, contemplative visual language.
+- The app supports a configurable `STUDY_CONFIG` object at the top of `index.html` so a group can adapt the plan without changing the whole app.
+- Bible text is fetched dynamically from a Bible API and falls back gracefully.
+- Progress, notes, and preferences are saved in `localStorage`.
+- The project is already set up for GitHub Pages deployment.
+- There is an original-language data architecture in place:
+  - `data/original-languages.json` for curated verses used in the app
+  - `data/greek/nt/` for extracted Greek source data
+  - `scripts/extract-greek-nt.js` for processing Codex Sinaiticus XML
+  - `docs/DATA-ARCHITECTURE.md` describing the intended flow
+
+Implementation Goals
+--------------------
+1. Keep the app lightweight and easy to fork.
+2. Make weekly study content easy to edit from one configuration area.
+3. Preserve strong readability on desktop and mobile.
+4. Support practical group use, not just individual reading.
+5. Expand the original-language feature set in a maintainable way.
+6. Keep curated content separate from extracted source data so the app stays fast and manageable.
+
+Original-Language Implementation Plan
+-------------------------------------
+- Hebrew content:
+  - Use curated verses in `data/original-languages.json`.
+  - Keep the source attribution clear and consistent.
+- Greek content:
+  - Use Codex Sinaiticus as the source manuscript.
+  - Process the large TEI XML into cleaner book-level JSON under `data/greek/nt/`.
+  - Curate only the verses needed for the study plan into `data/original-languages.json`.
+- App integration:
+  - Detect when original-language examples exist for a passage.
+  - Show a clear language badge or note when original-language content is available.
+  - Keep the UI readable and non-technical for group members.
+
+Near-Term Technical Priorities
+------------------------------
+- Finish or improve Greek extraction from `FINAL_TRANSCRIPTION_version104.xml`.
+- Validate extracted Greek output against the target verse references.
+- Populate additional curated original-language entries for weeks that include NT passages.
+- Keep the main app logic readable despite the growing feature set.
+- Ensure the app still works well as a static GitHub Pages site.
+
+Quality Targets
+---------------
+- Fast initial load.
+- Clear typography and spacing.
+- Reliable local storage behavior.
+- Graceful handling of missing data or offline use.
+- Accurate week detection and progress state.
+- Clear source attribution for all external or manuscript-derived content.
+
+Project Principle
+-----------------
+The tool should stay in the background. Scripture, community, and formation should remain primary.
+

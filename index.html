@@ -545,6 +545,43 @@
       border-left: 2px solid var(--accent);
     }
 
+    .compare-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 0.75rem;
+      align-items: start;
+    }
+
+    .compare-panel {
+      min-width: 0;
+    }
+
+    .compare-panel .panel-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--text-light);
+      margin-bottom: 0.35rem;
+      text-transform: uppercase;
+    }
+
+    .compare-panel .panel-text {
+      background: #f8f6ed;
+      border: 1px solid #d8d2be;
+      border-radius: 8px;
+      padding: 0.75rem 0.8rem;
+      line-height: 1.8;
+    }
+
+    .compare-source {
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--olive-700);
+      margin-bottom: 0.15rem;
+    }
+
     /* Stacked "Hebrew first" layout (Sefaria-style bilingual reading)
        when Full Original Text is enabled. This is generally more natural
        for scripture study than forcing side-by-side columns. */
@@ -600,6 +637,9 @@
       }
       .rhythm-reading {
         font-size: 0.72rem;
+      }
+      .compare-grid {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -682,6 +722,7 @@
             Week <span id="reading-week-num">—</span>/52 
             • <span id="reading-week-range"></span>
             <span id="reading-today-hint" style="margin-left:6px; color:var(--accent);"></span>
+            <span id="original-text-status" style="margin-left:10px; font-size:0.72rem;"></span>
           </div>
           <span class="section-sub">ESV primary • NIV available</span>
         </div>
@@ -696,7 +737,7 @@
           </label>
           <label style="display:flex; align-items:center; gap:4px; font-size:0.78rem; cursor:pointer;">
             <input type="checkbox" id="show-original-languages" onchange="toggleOriginalLanguages()">
-            <span><strong>Full Original Text</strong> (Hebrew/Greek with English)</span>
+            <span><strong>Full Original Text</strong> (Hebrew/Aramaic/Greek with English)</span>
           </label>
           <label style="display:flex; align-items:center; gap:4px; font-size:0.78rem; cursor:pointer;">
             <input type="checkbox" id="wide-layout" onchange="toggleWideLayout()">
@@ -929,8 +970,17 @@
           </div>
         </div>
       </div>
-    </div>
 
+      <!-- Sources -->
+      <div class="section" style="margin-top:1.75rem; padding-top:1rem; border-top:1px solid var(--line);">
+        <div style="font-size:0.9rem; font-weight:600; margin-bottom:0.4rem; color:var(--text);">Sources for Original Languages</div>
+        <div id="sources-list" style="font-size:0.82rem; color:var(--muted); line-height:1.55;"></div>
+        <div style="margin-top:0.5rem; font-size:0.75rem; opacity:0.65;">
+          Curated verses used by this study live in <code>data/original-languages.json</code>.
+        </div>
+      </div>
+
+    </div>
     </div> <!-- /tab-library -->
 
     <footer>
@@ -940,6 +990,7 @@
       </div>
       <div style="text-align:right;">
         Bible text via Bolls.life (ESV/NIV) • Design language from Emporia<br>
+        <span style="opacity:0.6;">Original languages: Sefaria + Codex Sinaiticus Project</span><br>
         <span style="opacity:0.6;">v0.2 • Annual Rhythm + Practice Check-in • Local-first</span>
       </div>
     </footer>
@@ -950,6 +1001,7 @@
        CONFIG — EDIT THIS SECTION TO MAKE IT YOURS
        This is the entire reusable scaffold. Any group can fork and edit here.
   ═══════════════════════════════════════════════════════════════════════════ -->
+  <script src="data/original-languages.js"></script>
   <script>
     // ──────────────────────────────────────────────────────────────────────────
     // STUDY CONFIG — The single source of truth for your group
@@ -1757,6 +1809,223 @@
             "Read Genesis 1 out loud once this week, slowly, as a prayer of praise rather than as information.",
             "Identify one ordinary thing in your daily environment (a tree, your hands, bread, a sidewalk) and speak the truth over it: 'God saw it, and it was very good.'"
           ]
+        },
+        {
+          id: 23,
+          title: "The Word Made Flesh",
+          theme: "John's opening vision of the eternal Word becoming human",
+          dates: "Jun 5 – Jun 11",
+          readings: [
+            { ref: "John 1:1-18", label: "The Prologue" },
+            { ref: "John 3:16-21", label: "Light and Belief" }
+          ],
+          comer: [
+            {
+              title: "Practicing the Way",
+              subtitle: "Practice: Scripture",
+              why: "John's Gospel invites slow, repeated reading that turns hearing into abiding. This week centers the Word himself rather than information about him.",
+              action: "Read John 1:1-18 aloud once a day this week, slowly enough to notice repeated words and images.",
+              link: "https://practicingtheway.org"
+            }
+          ],
+          scholars: [
+            {
+              author: "N.T. Wright",
+              title: "John for Everyone",
+              note: "A readable companion for John's theological themes and narrative movement.",
+              link: ""
+            }
+          ],
+          wordStudies: [
+            {
+              ref: "John 1:1",
+              term: "λόγος",
+              translit: "logos",
+              english: "word, reason, message",
+              meaning: "John uses logos to identify Jesus as God's self-expression and creative wisdom.",
+              significance: "This word bridges creation, revelation, and incarnation."
+            },
+            {
+              ref: "John 1:14",
+              term: "σὰρξ",
+              translit: "sarx",
+              english: "flesh",
+              meaning: "John's claim is not that the Word seemed human, but that he truly became embodied.",
+              significance: "The incarnation is concrete, not symbolic."
+            }
+          ],
+          originalLanguageExamples: [
+            {
+              ref: "John 1:1",
+              language: "Greek",
+              text: "εν αρχη ην ο λογοϲ και ο λογοϲ ην προϲ τον θν και θϲ ην ο λογοϲ",
+              translit: "En archē ēn ho logos kai ho logos ēn pros ton theon kai theos ēn ho logos",
+              meaning: "In the beginning was the Word, and the Word was with God, and the Word was God."
+            },
+            {
+              ref: "John 1:14",
+              language: "Greek",
+              text: "και ο λογοϲ ϲαρξ εγενετο και εϲκηνωϲεν εν ημιν",
+              translit: "Kai ho logos sarx egeneto kai eskēnōsen en hēmin",
+              meaning: "And the Word became flesh and dwelt among us."
+            },
+            {
+              ref: "John 3:16",
+              language: "Greek",
+              text: "ουτωϲ γαρ ηγαπηϲεν ο θϲ τον κοϲμον ωϲτε τον υν τον μονογενη εδωκεν ινα παϲ ο πιϲτευων ειϲ αυτον μη αποληται αλλ εχη ζωην αιωνιον",
+              translit: "Houtōs gar ēgapēsen ho theos ton kosmon, hōste ton huion ton monogenē edōken, hina pas ho pisteuōn eis auton mē apolētai all' echē zōēn aiōnion",
+              meaning: "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."
+            }
+          ],
+          prompts: [
+            "What do you notice when you read John's opening slowly and repeatedly?",
+            "How does the incarnation change your view of embodied life, not just ideas about God?"
+          ],
+          groupDiscussionQuestions: [
+            "John's prologue places creation, revelation, and salvation inside one story. How does that challenge the way we tend to separate spirituality from everyday life?",
+            "What is the difference between believing that Jesus is true and actually abiding in him as the living Word?"
+          ],
+          takeHomeReflections: [
+            "Pray John 1:14 each morning this week as a confession of God's nearness.",
+            "Identify one place where you are tempted to treat God as abstract and ask how the incarnation corrects that habit."
+          ]
+        },
+        {
+          id: 24,
+          title: "Aramaic in Exile",
+          theme: "A fragment of the exile-era story preserved in Aramaic",
+          dates: "Jun 12 – Jun 18",
+          readings: [
+            { ref: "Ezra 4:8-24", label: "The letter to Artaxerxes" }
+          ],
+          comer: [
+            {
+              title: "Practicing the Way",
+              subtitle: "Practice: Scripture",
+              why: "This passage reminds us that Scripture was written in real historical settings and languages, not abstract religious language.",
+              action: "Read Ezra 4:8-24 slowly and notice the shift in language and tone inside the exile narrative.",
+              link: "https://practicingtheway.org"
+            }
+          ],
+          scholars: [
+            {
+              author: "N.T. Wright",
+              title: "Scripture and the Authority of God",
+              note: "Useful for thinking about how Scripture functions in the life of God's people across historical contexts.",
+              link: ""
+            }
+          ],
+          wordStudies: [
+            {
+              ref: "Ezra 4:8",
+              term: "אֲרָמִית",
+              translit: "Aramit",
+              english: "Aramaic",
+              meaning: "The text explicitly marks the language of the letter as Aramaic.",
+              significance: "This is a visible reminder that the biblical text includes multiple languages."
+            }
+          ],
+          originalLanguageExamples: [
+            {
+              ref: "Ezra 4:8",
+              language: "Aramaic",
+              text: "כְּתָב֙ הַֽנִּשְׁתְּוָ֔ן כָּת֥וּב אֲרָמִ֖ית וּמְתֻרְגָּ֥ם אֲרָמִֽית׃",
+              translit: "Ketav ha-nishtwan katuv Aramit u-meturgam Aramit",
+              meaning: "The letter was written in Aramaic and translated in Aramaic."
+            },
+            {
+              ref: "Ezra 4:9",
+              language: "Aramaic",
+              text: "אֱדַ֜יִן רְח֣וּם בְּעֵל־טְעֵ֗ם וְשִׁמְשַׁי֙ סָֽפְרָ֔א וּשְׁאָ֖ר כְּנָוָתְה֑וֹן דִּ֠ינָיֵ֠א וַאֲפַרְסַתְכָיֵ֞א",
+              translit: "Edayin Rehum be'el-te'em u-Shimshay safra u-sh'ar kenavtehon dinaya ve-Apharsatkaya",
+              meaning: "Then Rehum the commissioner and Shimshai the scribe, and the rest of their colleagues..."
+            }
+          ],
+          prompts: [
+            "What does it change when you remember that Scripture came through actual languages and historical circumstances?",
+            "How does exile shape the way God's people communicate and preserve memory?"
+          ],
+          groupDiscussionQuestions: [
+            "Ezra 4 includes an explicit note that part of the narrative is in Aramaic. Why does that matter for how we read Scripture as a whole?",
+            "What do you think the use of Aramaic tells us about God's presence in the middle of empire, administration, and exile?"
+          ],
+          takeHomeReflections: [
+            "Read the passage once in English and once looking at the original-language line.",
+            "Reflect on a place in your life that feels like exile and ask what faithful witness looks like there."
+          ]
+        },
+        {
+          id: 25,
+          title: "Return and Rebuild",
+          theme: "A Hebrew opening and an Aramaic exile memory in the same week",
+          dates: "Jun 19 – Jun 25",
+          readings: [
+            { ref: "Ezra 1:1-4", label: "Return begins" },
+            { ref: "Ezra 4:8-9", label: "Opposition in Aramaic" }
+          ],
+          comer: [
+            {
+              title: "Practicing the Way",
+              subtitle: "Practice: Community",
+              why: "Rebuilding happens in public, not private. This week holds both return and resistance together.",
+              action: "Pray for one practical rebuilding task in your community this week and do one concrete thing to help it move forward.",
+              link: "https://practicingtheway.org"
+            }
+          ],
+          scholars: [
+            {
+              author: "N.T. Wright",
+              title: "Scripture and the Authority of God",
+              note: "Helpful for seeing how return from exile becomes a template for restoration.",
+              link: ""
+            }
+          ],
+          wordStudies: [
+            {
+              ref: "Ezra 1:1",
+              term: "וַיָּעֶר",
+              translit: "vaya'er",
+              english: "stirred up",
+              meaning: "The LORD stirs the spirit of Cyrus to begin the return.",
+              significance: "Restoration begins with God moving before human action."
+            },
+            {
+              ref: "Ezra 4:8",
+              term: "אֲרָמִית",
+              translit: "Aramit",
+              english: "Aramaic",
+              meaning: "The text marks the language shift explicitly.",
+              significance: "Scripture preserves the linguistic texture of exile."
+            }
+          ],
+          originalLanguageExamples: [
+            {
+              ref: "Ezra 1:1",
+              language: "Hebrew",
+              text: "וּבִשְׁנַ֣ת אַחַ֗ת לְכוֹרֶשׁ֙ מֶ֣לֶךְ פָּרַ֔ס לִכְלוֹת֙ דְּבַר־יְהוָ֣ה מִפִּ֣י יִרְמְיָ֔הוּ",
+              translit: "U-vishnat achat le-Khoresh melech Paras likhlot devar-YHWH mippi Yirmeyahu",
+              meaning: "In the first year of Cyrus king of Persia, to fulfill the word of the LORD by the mouth of Jeremiah..."
+            },
+            {
+              ref: "Ezra 4:8",
+              language: "Aramaic",
+              text: "כְּתָב֙ הַֽנִּשְׁתְּוָ֔ן כָּת֥וּב אֲרָמִ֖ית וּמְתֻרְגָּ֥ם אֲרָמִֽית׃",
+              translit: "Ketav ha-nishtwan katuv Aramit u-meturgam Aramit",
+              meaning: "The letter was written in Aramaic and translated in Aramaic."
+            }
+          ],
+          prompts: [
+            "Where do you see God stirring return before circumstances look favorable?",
+            "How do return and opposition often appear together in real life?"
+          ],
+          groupDiscussionQuestions: [
+            "What does Ezra 1 suggest about the way God works through rulers and empires?",
+            "Why is it valuable that Scripture preserves both Hebrew and Aramaic in the rebuilding story?"
+          ],
+          takeHomeReflections: [
+            "Ask God to stir one concrete rebuilding step in your life or group this week.",
+            "Read Ezra 1:1-4 and Ezra 4:8-9 out loud, noting the shift in language and tone."
+          ]
         }
       ],
 
@@ -1803,6 +2072,22 @@
           author: "John Mark Comer / Practicing the Way",
           desc: "An 8-session guided experience for building a personal and communal rule of life.",
           link: "https://practicingtheway.org"
+        }
+      ],
+
+      // Sources for original language texts (shown in Resources tab + footer)
+      sources: [
+        {
+          label: "Hebrew (Old Testament)",
+          source: "Sefaria — Digital Library of Jewish Texts",
+          url: "https://www.sefaria.org",
+          note: "Masoretic Text editions (including Miqra according to the Masorah)"
+        },
+        {
+          label: "Greek (New Testament)",
+          source: "Codex Sinaiticus Project",
+          url: "https://github.com/itsee-birmingham/codex-sinaiticus",
+          note: "Diplomatic transcription of Codex Sinaiticus (4th c.), one of the earliest complete manuscripts of the Greek Bible. Processed from the official TEI XML (v1.04)."
         }
       ]
     }
@@ -1983,31 +2268,60 @@
       }
     }
 
-    // Global lookup so that original-language full verse text curated anywhere
-    // becomes available for any week that reads the same passage.
-    // This fixes the long-standing "I put the Hebrew in but it never shows on the week I'm viewing" issue.
-    function findOriginalLanguageExamplesForRef(ref) {
-      const results = [];
-      if (!ref) return results;
-      const book = ref.toLowerCase().split(' ')[0];
-      for (const w of (STUDY_CONFIG.weeks || [])) {
-        const examples = w.originalLanguageExamples || [];
-        for (const ex of examples) {
-          if (!ex || !ex.ref) continue;
-          if (ex.ref.toLowerCase().startsWith(book)) {
-            // de-dupe by ref + text
-            if (!results.some(r => r.ref === ex.ref && r.text === ex.text)) {
-              results.push(ex);
-            }
-          }
-        }
+    // Global lookup so that original-language text curated in the generated JSON
+    // becomes available for the exact weekly reading being rendered.
+    function hasOriginalTextForWeek(weekId) {
+      if (!weekId) return false;
+      const fromExternal = externalOriginalLanguages[String(weekId)] || [];
+      return fromExternal.length > 0;
+    }
+
+    function getOriginalLanguagesForWeek(weekId) {
+      const langs = new Set();
+      if (!weekId) return [];
+
+      const fromExternal = externalOriginalLanguages[String(weekId)] || [];
+      fromExternal.forEach(ex => {
+        if (ex && ex.language) langs.add(String(ex.language));
+      });
+
+      return [...langs];
+    }
+
+    function hasOriginalLanguageCoverageForReading(ref, weekId) {
+      if (!ref) return false;
+      const normalizedRef = normalizeRefForMatch(ref);
+
+      const weekExamples = externalOriginalLanguages[String(weekId)] || [];
+      for (const ex of weekExamples) {
+        if (ex && ex.ref && normalizeRefForMatch(ex.ref) === normalizedRef) return true;
       }
-      return results;
+      return false;
+    }
+
+    function isWeekFullyCovered(weekId) {
+      const week = STUDY_CONFIG.weeks.find(w => w.id === weekId);
+      if (!week || !Array.isArray(week.readings) || !week.readings.length) return false;
+      return week.readings.every(r => hasOriginalLanguageCoverageForReading(r.ref, weekId));
+    }
+
+    function normalizeRefForMatch(ref) {
+      return String(ref || '')
+        .replace(/\([^)]*\)/g, '')
+        .replace(/[._,;]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .toLowerCase();
     }
 
     // Load full original-language verses from the external JSON file.
     // This is the maintainable source for Hebrew / Greek / Aramaic text.
     async function loadExternalOriginalLanguages() {
+      if (window.ORIGINAL_LANGUAGES_DATA && typeof window.ORIGINAL_LANGUAGES_DATA === 'object') {
+        externalOriginalLanguages = window.ORIGINAL_LANGUAGES_DATA;
+        console.log('[Sacred Rhythm] Loaded original languages from embedded script');
+        return;
+      }
       try {
         const res = await fetch('data/original-languages.json');
         if (res.ok) {
@@ -2016,36 +2330,22 @@
           console.log('[Sacred Rhythm] Loaded external original languages data');
         }
       } catch (e) {
-        // Silent fail — we still have any inline data in STUDY_CONFIG
+        // Silent fail — the embedded script fallback covers local-file usage
       }
     }
 
-    // Enhanced lookup that checks BOTH the inline week data AND the external JSON file.
+    // Exact lookup against the generated external JSON file.
     function findOriginalLanguageExamplesForRef(ref) {
       const results = [];
       if (!ref) return results;
 
-      const book = ref.toLowerCase().split(' ')[0];
-      const chapterMatch = ref.match(/(\d+)/);
-      const chapter = chapterMatch ? chapterMatch[1] : null;
+      const normalizedRef = normalizeRefForMatch(ref);
 
-      // 1. From inline STUDY_CONFIG weeks
-      for (const w of (STUDY_CONFIG.weeks || [])) {
-        const examples = w.originalLanguageExamples || [];
-        for (const ex of examples) {
-          if (ex && ex.ref && isRefMatch(ex.ref, book, chapter)) {
-            if (!results.some(r => r.ref === ex.ref && r.text === ex.text)) {
-              results.push(ex);
-            }
-          }
-        }
-      }
-
-      // 2. From external data/original-languages.json (the real maintainable source)
       Object.keys(externalOriginalLanguages).forEach(weekKey => {
-        const examples = externalOriginalLanguages[weekKey] || [];
+        const examples = externalOriginalLanguages[weekKey];
+        if (!Array.isArray(examples)) return;
         for (const ex of examples) {
-          if (ex && ex.ref && isRefMatch(ex.ref, book, chapter)) {
+          if (ex && ex.ref && normalizeRefForMatch(ex.ref) === normalizedRef) {
             if (!results.some(r => r.ref === ex.ref && r.text === ex.text)) {
               results.push(ex);
             }
@@ -2054,14 +2354,6 @@
       });
 
       return results;
-    }
-
-    // Helper: does this example ref match the reading ref (book + optional chapter)?
-    function isRefMatch(exampleRef, book, chapter) {
-      const exLower = exampleRef.toLowerCase();
-      if (!exLower.startsWith(book)) return false;
-      if (!chapter) return true;
-      return exLower.includes(` ${chapter}`) || exLower.includes(`:${chapter}`) || exLower.includes(`${book}${chapter}`);
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -2122,6 +2414,20 @@
         else dayLabel = "Before this week starts"
 
         todayHintEl.textContent = `• ${dayLabel}`
+      }
+
+      // Show original text availability
+      const origStatus = document.getElementById('original-text-status')
+      if (origStatus) {
+        const hasText = hasOriginalTextForWeek(currentWeekId)
+        const isComplete = isWeekFullyCovered(currentWeekId)
+        const langs = getOriginalLanguagesForWeek(currentWeekId)
+        const langLabel = langs.length
+          ? `${langs.join(' / ')} available`
+          : 'Original text not yet curated for this week'
+        origStatus.innerHTML = hasText 
+          ? `<span style="color:#5f6b3f; font-weight:600;">✓ ${isComplete ? 'All readings original-language available' : langLabel}</span>`
+          : `<span style="opacity:0.7;">Original text not yet curated for this week</span>`
       }
     }
 
@@ -2223,11 +2529,11 @@
         originalItems.push(`
           <div class="original-item" style="margin-bottom:0.6rem;">
             <div class="original-label" style="font-size:0.7rem; margin-bottom:0.25rem;">FULL VERSE — ${ex.language || 'Original'} ${ex.ref || ref}</div>
-            <div style="font-family: 'Instrument Serif', serif; font-size:1.25rem; line-height:1.35; color:#1f2a1a; background:#f8f6ed; padding:0.35rem 0.5rem; border-radius:4px; border-left:4px solid #5f6b3f;">
+            <div style="font-family: 'Instrument Serif', 'Times New Roman', serif; font-size:1.15rem; line-height:1.4; color:#1f2a1a; background:#f8f6ed; padding:0.4rem 0.55rem; border-radius:4px; border-left:4px solid #5f6b3f; direction: ${ex.language === 'Greek' ? 'ltr' : 'rtl'}; white-space: pre-line;">
               ${ex.text}
             </div>
-            <div style="font-size:0.78rem; color:#5a5342; margin-top:0.2rem;"><strong>Transliteration:</strong> ${ex.translit}</div>
-            <div style="font-size:0.78rem; color:var(--muted); margin-top:0.15rem;"><strong>Meaning:</strong> ${ex.meaning}</div>
+            ${ex.translit ? `<div style="font-size:0.78rem; color:#5a5342; margin-top:0.2rem;"><strong>Transliteration:</strong> ${ex.translit}</div>` : ''}
+            ${ex.meaning ? `<div style="font-size:0.78rem; color:var(--muted); margin-top:0.15rem;"><strong>Meaning:</strong> ${ex.meaning}</div>` : ''}
           </div>
         `);
       });
@@ -2237,39 +2543,45 @@
         ? originalItems.join('') 
         : `<div style="font-size:0.78rem; color:var(--muted); font-style:italic; padding:0.5rem;">
              No full original text yet for this reading.<br>
-             Edit <code>data/original-languages.json</code> (or add to any week in STUDY_CONFIG) and the full Hebrew/Greek will appear here automatically.
+             Edit <code>data/original-languages.json</code> (or add to any week in STUDY_CONFIG) and the full original-language text will appear here automatically.
            </div>`;
+      const originalSourceLabel = hasOriginal
+        ? buildOriginalSourceLabel(dedicated)
+        : 'Original';
 
       let html = `<div class="scripture-pairs">`;
 
       if (showOriginal && hasOriginal) {
-        // Sefaria-inspired stacked layout: Full original Hebrew first (prominent),
-        // then English translation(s) underneath. Feels more natural for study
-        // than rigid side-by-side columns.
+        const englishText = showESV ? esvText : nivText
+        const englishLabel = showESV ? 'ESV' : 'NIV'
         html += `
-          <div class="original-first-block" style="margin-bottom:0.75rem;">
-            ${originalHTML}
+          <div class="compare-grid original-first-block" style="margin-bottom:0.75rem;">
+            <div class="compare-panel">
+              <div class="panel-label">Original</div>
+              <div class="compare-source">${originalSourceLabel}</div>
+              ${originalHTML}
+            </div>
+            <div class="compare-panel">
+              <div class="panel-label">${englishLabel}</div>
+              <div class="compare-source">${englishLabel} • Bolls.life live API</div>
+              <div class="panel-text scripture-block" style="margin:0; background:#f4f2e8; white-space: pre-line;">
+                <div class="text">${englishText || ''}</div>
+              </div>
+            </div>
           </div>
         `;
 
-        // English below the Hebrew
-        if (showESV && esvText) {
+        if (showESV && showNIV && nivText) {
           html += `
-            <div class="english-under-original" style="margin-bottom:0.5rem;">
-              <div style="font-size:0.65rem; font-weight:700; letter-spacing:0.05em; color:var(--text-light); margin-bottom:3px;">ESV</div>
-              <div class="scripture-block">
-                <div class="text">${esvText}</div>
+            <div class="compare-grid" style="margin-top:0.55rem;">
+              <div class="compare-panel">
+                <div class="panel-label">NIV</div>
+                <div class="compare-source">NIV • Bolls.life live API</div>
+                <div class="panel-text scripture-block" style="margin:0; background:#f4f3ed; white-space: pre-line;">
+                  <div class="text">${nivText}</div>
+                </div>
               </div>
-            </div>
-          `;
-        }
-        if (showNIV && nivText) {
-          html += `
-            <div class="english-under-original">
-              <div style="font-size:0.65rem; font-weight:700; letter-spacing:0.05em; color:var(--text-light); margin-bottom:3px;">NIV</div>
-              <div class="scripture-block" style="background:#f4f3ed;">
-                <div class="text">${nivText}</div>
-              </div>
+              <div class="compare-panel"></div>
             </div>
           `;
         }
@@ -2320,7 +2632,6 @@
 
         const esvText = showESV ? await fetchBibleText(reading.ref, 'ESV') : null
         const nivText = showNIV ? await fetchBibleText(reading.ref, 'NIV') : null
-
         const completedKey = `reading-${reading.ref}`
         const checked = isCompleted(week.id, completedKey) ? 'checked' : ''
 
@@ -2498,7 +2809,7 @@
         <table class="rhythm-table">
           <thead>
             <tr>
-              <th style="width:52px;">Week</th>
+              <th style="width:62px;">Week <span style="font-size:0.6rem; opacity:0.6;">(TXT = orig. text)</span></th>
               <th style="width:110px;">Fri – Sat</th>
               <th>Title &amp; Theme</th>
               <th>Core Reading</th>
@@ -2526,9 +2837,13 @@
 
         const rowClass = isCurrent ? 'current-week' : ''
 
+        const hasOrig = hasOriginalTextForWeek(w);
         html += `
           <tr class="${rowClass}">
-            <td class="rhythm-weeknum">W${w}</td>
+            <td class="rhythm-weeknum">
+              W${w}
+              ${hasOrig ? `<span style="font-size:0.6rem; background:#5f6b3f; color:white; padding:1px 4px; border-radius:3px; margin-left:4px; vertical-align:1px;">TXT</span>` : ''}
+            </td>
             <td class="rhythm-dates">${range.formatted}</td>
             <td>
               <div class="rhythm-title">${weekData.title}</div>
@@ -2591,6 +2906,23 @@
           <a href="${res.link}" target="_blank" class="btn" style="margin-top:0.9rem; font-size:0.76rem;">Find this resource →</a>
         `
         container.appendChild(el)
+      })
+    }
+
+    function renderSources() {
+      const container = document.getElementById('sources-list')
+      if (!container || !STUDY_CONFIG.sources) return
+      container.innerHTML = ''
+
+      STUDY_CONFIG.sources.forEach(src => {
+        const div = document.createElement('div')
+        div.style.marginBottom = '0.6rem'
+        div.innerHTML = `
+          <strong>${src.label}</strong><br>
+          <a href="${src.url}" target="_blank" style="color:var(--olive-500);">${src.source}</a>
+          ${src.note ? `<div style="opacity:0.72; font-size:0.78rem; margin-top:2px;">${src.note}</div>` : ''}
+        `
+        container.appendChild(div)
       })
     }
 
@@ -2938,6 +3270,20 @@
       renderReadings();
     }
 
+    function buildOriginalSourceLabel(examples) {
+      const langs = new Set((examples || []).map(ex => (ex && ex.language ? String(ex.language).toLowerCase() : '')).filter(Boolean))
+      if (langs.size === 0) return 'Original text'
+      if (langs.size === 1) {
+        const lang = [...langs][0]
+        if (lang === 'greek') return 'Koine Greek • Codex Sinaiticus'
+        if (lang === 'hebrew') return 'Hebrew • Sefaria / Masoretic Text'
+        if (lang === 'aramaic') return 'Aramaic • curated study text'
+        return `${lang.charAt(0).toUpperCase()}${lang.slice(1)} • original language text`
+      }
+      const pretty = [...langs].map(lang => lang.charAt(0).toUpperCase() + lang.slice(1)).join(' / ')
+      return `${pretty} • original language text`
+    }
+
     function toggleWideLayout() {
       const checkbox = document.getElementById('wide-layout');
       const body = document.body;
@@ -3006,6 +3352,7 @@
       renderAnnualRhythm()
 
       renderResourcesLibrary()
+      renderSources()
       renderReflectionPrompts()
       renderParticipation()
       renderPracticeCheckin()           // New strong practice check-in experience
@@ -3043,14 +3390,9 @@
 
       initTabs()
 
-      // Load external original language text (the maintainable source)
-      // Once loaded, re-render readings so the full Hebrew/Greek appears immediately.
-      loadExternalOriginalLanguages().then(() => {
-        const container = document.getElementById('readings-container')
-        if (container) {
-          renderReadings()
-        }
-      })
+      // Load external original language text before the first render so the
+      // readings are built once with the correct data already available.
+      loadExternalOriginalLanguages()
 
       renderAll()
 

@@ -11,7 +11,7 @@ A beautiful, reusable HTML-based companion for weekly group Bible study.
 - Strong **Group Practice Check-in** experience modeled on what actually works in healthy formation groups (especially Practicing the Way patterns).
 - Built around a **weekly rhythm** with strong support for plans like Bible in a Year.
 - Designed to integrate **John Mark Comer** (Practicing the Way, spiritual formation) and other respected voices.
-- First-class support for **ESV** (with NIV toggle), plus curated **Greek & Hebrew word studies**.
+- First-class support for **ESV** (with NIV toggle), plus curated **Hebrew, Aramaic, and Greek** original-language study.
 - **Reusable scaffold**: Any group can fork this, edit a single config object, and have their own beautiful study companion in minutes.
 
 ## Design
@@ -75,7 +75,7 @@ After deploying, you can share the GitHub Pages URL with your group instead of t
 **Languages**
 - ESV + NIV side-by-side where helpful
 - Blue Letter Bible, StepBible.org, BibleHub for deeper personal study
-- *The Greek New Testament* (UBS/Nestle-Aland) and *Biblia Hebraica Stuttgartensia*
+- *The Greek New Testament* (UBS/Nestle-Aland), *Biblia Hebraica Stuttgartensia*, and Aramaic text where the biblical books include it
 
 ## Customization
 
