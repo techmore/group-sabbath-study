@@ -702,8 +702,12 @@
           <h1 id="week-title" class="serif" style="font-size:2.1rem; line-height:1.15;"></h1>
           <p id="week-theme" class="serif-lg muted" style="margin-top:0.25rem;"></p>
         </div>
-        <div class="week-switcher" id="week-switcher">
-          <!-- Populated by JS -->
+        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+          <button type="button" class="btn btn-ghost" id="prev-week-btn" onclick="goToAdjacentWeek(-1)" aria-label="Previous week">← Prev</button>
+          <div class="week-switcher" id="week-switcher">
+            <!-- Populated by JS -->
+          </div>
+          <button type="button" class="btn btn-ghost" id="next-week-btn" onclick="goToAdjacentWeek(1)" aria-label="Next week">Next →</button>
         </div>
       </div>
 
@@ -2384,6 +2388,15 @@
       })
     }
 
+    function updateAdjacentWeekButtons() {
+      const prevBtn = document.getElementById('prev-week-btn')
+      const nextBtn = document.getElementById('next-week-btn')
+      const currentIndex = STUDY_CONFIG.weeks.findIndex(w => w.id === currentWeekId)
+
+      if (prevBtn) prevBtn.disabled = currentIndex <= 0
+      if (nextBtn) nextBtn.disabled = currentIndex < 0 || currentIndex >= STUDY_CONFIG.weeks.length - 1
+    }
+
     function renderCurrentWeekHeader() {
       const week = getCurrentWeek()
       // Prefer the calculated Friday–Saturday range for consistency with the Annual Rhythm view
@@ -2429,6 +2442,8 @@
           ? `<span style="color:#5f6b3f; font-weight:600;">✓ ${isComplete ? 'All readings original-language available' : langLabel}</span>`
           : `<span style="opacity:0.7;">Original text not yet curated for this week</span>`
       }
+
+      updateAdjacentWeekButtons()
     }
 
     function renderTrackToggles() {
@@ -2889,6 +2904,15 @@
     function jumpToDetectedWeek() {
       const detected = calculateCurrentWeekId()
       jumpToWeek(detected)
+    }
+
+    function goToAdjacentWeek(delta) {
+      const weeks = STUDY_CONFIG.weeks || []
+      const idx = weeks.findIndex(w => w.id === currentWeekId)
+      if (idx < 0) return
+      const next = weeks[idx + delta]
+      if (!next) return
+      jumpToWeek(next.id)
     }
 
     function renderResourcesLibrary() {
