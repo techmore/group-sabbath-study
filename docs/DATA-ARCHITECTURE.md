@@ -28,7 +28,8 @@
   - 4th century majuscule manuscript
   - Diplomatic transcription (very detailed, includes layout + scribal corrections)
   - ~29MB, 142k lines, complex TEI structure
-- Problem: Not usable raw. Requires processing.
+- Status: Extracted and normalized into `data/greek/nt/*.json` for all NT books.
+- The raw XML is still the authoritative source file, but the usable extracted layer is now complete.
 
 ## Recommended Architecture
 
@@ -104,20 +105,24 @@ For the extracted per-book files, we can use a simpler nested structure:
 3. Outputs one clean JSON file per NT book into `data/greek/nt/`.
 4. Later, when curating a week, copy/paste or reference the desired verses into `original-languages.json`.
 
-## App Integration Changes Needed
+Current status:
+- The one-time extraction step has already been completed for the full NT set in this repo.
+- Re-run the script only if the transcription source changes or the extraction logic improves.
 
-- Extend `findOriginalLanguageExamplesForRef()` to also search Greek data.
-- In `renderScriptureBlock()`, detect NT readings and pull Greek when available.
-- Possibly add a small language badge ("Koine Greek • Codex Sinaiticus") or note.
-- Update the checkbox label / help text to mention Hebrew, Aramaic, and Greek when present.
+## App Integration
+
+- `findOriginalLanguageExamplesForRef()` resolves curated reading refs from `data/original-languages.json`.
+- `renderScriptureBlock()` shows Greek whenever a curated NT week includes it.
+- The UI already labels Greek as `Koine Greek • Codex Sinaiticus`.
+- The checkbox label / help text already mentions Hebrew, Aramaic, and Greek when present.
 
 ## Phased Implementation
 
-**Phase 1 (Current)**: Set up structure + proof-of-concept extraction for 1-2 books (e.g. John + Matthew).
+**Phase 1**: Set up structure + proof-of-concept extraction for 1-2 books (e.g. John + Matthew).
 
 **Phase 2**: Full extraction script that can process the entire New Testament reliably.
 
-**Phase 3**: Begin curating Greek verses into `original-languages.json` for weeks that will have NT content.
+**Phase 3**: Curate Greek verses into `original-languages.json` for weeks that will have NT content.
 
 **Phase 4**: UI polish (proper Greek font stack, better transliteration quality, notes about the manuscript source).
 

@@ -45,7 +45,7 @@ Current Implementation Status
 - The project is already set up for GitHub Pages deployment.
 - There is an original-language data architecture in place:
   - `data/original-languages.json` for curated verses used in the app
-  - `data/greek/nt/` for extracted Greek source data
+  - `data/greek/nt/` for extracted Greek source data across the full NT
   - `scripts/extract-greek-nt.js` for processing Codex Sinaiticus XML
   - `docs/DATA-ARCHITECTURE.md` describing the intended flow
 
@@ -74,9 +74,9 @@ Original-Language Implementation Plan
 
 Near-Term Technical Priorities
 ------------------------------
-- Finish or improve Greek extraction from `FINAL_TRANSCRIPTION_version104.xml`.
-- Validate extracted Greek output against the target verse references.
-- Populate additional curated original-language entries for weeks that include NT passages.
+- Keep the Greek extraction script available for regeneration if the source transcription changes.
+- Validate extracted Greek output against the target verse references when the source updates.
+- Populate additional curated original-language entries for any new weeks that include NT passages.
 - Keep the main app logic readable despite the growing feature set.
 - Ensure the app still works well as a static GitHub Pages site.
 
@@ -92,4 +92,3 @@ Quality Targets
 Project Principle
 -----------------
 The tool should stay in the background. Scripture, community, and formation should remain primary.
-
