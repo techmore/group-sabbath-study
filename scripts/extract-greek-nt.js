@@ -15,6 +15,7 @@
  * Usage:
  *   node scripts/extract-greek-nt.js JOHN > data/greek/nt/john.json
  *   node scripts/extract-greek-nt.js MATT > data/greek/nt/matthew.json
+ *   node scripts/extract-greek-nt.js 1JOHN > data/greek/nt/1john.json
  *
  * This is an initial proof-of-concept extractor.
  * It focuses on getting readable Greek text per verse from the diplomatic transcription.
@@ -75,7 +76,7 @@ if (require.main === module) {
   const book = process.argv[2];
   if (!book) {
     console.error('Usage: node scripts/extract-greek-nt.js <BOOKCODE>');
-    console.error('Example book codes: JOHN, MATT, MARK, LUKE, ACTS, ROM, 1COR, etc.');
+    console.error('Example book codes: JOHN, MATT, MARK, LUKE, ACTS, ROM, 1COR, 1JOHN, 1PET, 1THESS, etc.');
     process.exit(1);
   }
 

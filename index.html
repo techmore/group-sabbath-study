@@ -702,12 +702,8 @@
           <h1 id="week-title" class="serif" style="font-size:2.1rem; line-height:1.15;"></h1>
           <p id="week-theme" class="serif-lg muted" style="margin-top:0.25rem;"></p>
         </div>
-        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
-          <button type="button" class="btn btn-ghost" id="prev-week-btn" onclick="goToAdjacentWeek(-1)" aria-label="Previous week">← Prev</button>
-          <div class="week-switcher" id="week-switcher">
-            <!-- Populated by JS -->
-          </div>
-          <button type="button" class="btn btn-ghost" id="next-week-btn" onclick="goToAdjacentWeek(1)" aria-label="Next week">Next →</button>
+        <div class="week-switcher" id="week-switcher">
+          <!-- Populated by JS -->
         </div>
       </div>
 
@@ -730,7 +726,12 @@
           </div>
           <span class="section-sub">ESV primary • NIV available</span>
         </div>
-        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:0.5rem;">
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <button type="button" class="btn btn-ghost" id="prev-week-btn" onclick="goToAdjacentWeek(-1)" aria-label="Previous week">← Prev</button>
+            <button type="button" class="btn btn-ghost" id="next-week-btn" onclick="goToAdjacentWeek(1)" aria-label="Next week">Next →</button>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:flex-end;">
           <label style="display:flex; align-items:center; gap:4px; font-size:0.78rem; cursor:pointer;">
             <input type="checkbox" id="show-esv" checked onchange="toggleTranslationVisibility()">
             <span>ESV</span>
@@ -748,6 +749,7 @@
             <span>Wide layout</span>
           </label>
           <button onclick="refreshAllBibleText()" class="btn btn-ghost" style="font-size:0.72rem; padding:0.3rem 0.6rem;">↻</button>
+          </div>
         </div>
       </div>
 
