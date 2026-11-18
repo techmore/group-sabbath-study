@@ -4,6 +4,8 @@ A beautiful, reusable HTML-based companion for weekly group Bible study.
 
 **Not another reading app.** A thoughtful scaffold that helps any group follow Scripture together while going deeper with trusted teachers, scholars, and original languages — all while encouraging real books, real conversation, and real formation.
 
+**Live site:** https://techmore.github.io/group-sabbath-study/
+
 ## What it is
 
 - A **self-contained, elegant single-page experience** you can open locally or host simply.
@@ -121,3 +123,5 @@ If this tool serves your community, we'd love to hear about it.
 ---
 
 Made with care for groups who want depth without distraction.
+
+Part of [Techmore](https://techmore.github.io/pages/repos/).
